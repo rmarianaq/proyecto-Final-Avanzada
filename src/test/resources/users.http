@@ -1,0 +1,39 @@
+### Obtener todos los usuarios
+GET http://localhost:8080/api/usuarios
+
+
+### Obtener un usuario por su id
+GET http://localhost:8080/api/usuarios/1
+
+
+### Crear un usuario
+POST http://localhost:8080/api/usuarios
+Content-Type: application/json
+
+
+{
+  "nombre": "Carlos",
+  "telefono": "3225469",
+  "ciudad": "Armenia",
+  "direccion": "Calle 123",
+  "email": "carlos@email.com",
+  "password": "123456"
+}
+
+
+### Actualizar un usuario
+PUT http://localhost:8080/api/usuarios
+Content-Type: application/json
+
+
+{
+  "id": 1,
+  "nombre": "Carlos",
+  "telefono": "3225479",
+  "ciudad": "Armenia",
+  "direccion": "Nueva dirección"
+}
+
+
+### Eliminar un usuario
+DELETE http://localhost:8080/api/usuarios/1
