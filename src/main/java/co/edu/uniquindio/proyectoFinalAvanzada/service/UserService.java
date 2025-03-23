@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyectoFinalAvanzada.service;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.CreateUserDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.UpdateUserDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.UserDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.UserFilterDTO;
 
 import java.util.List;
 
@@ -15,5 +16,5 @@ public interface UserService {
 
     UserDTO getUser(String id);
 
-    List<UserDTO> listAllUsers(String name, String city);
+    List<UserDTO> listAllUsers(UserFilterDTO filter);
 }

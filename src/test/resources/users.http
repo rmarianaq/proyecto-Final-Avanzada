@@ -12,12 +12,12 @@ Content-Type: application/json
 
 
 {
-  "nombre": "Carlos",
-  "telefono": "3225469",
-  "ciudad": "Armenia",
-  "direccion": "Calle 123",
+  "name": "Carlos",
+  "phone": "3225469",
+  "city": "Armenia",
+  "address": "Calle 123",
   "email": "carlos@email.com",
-  "password": "123456"
+  "password": "1234567"
 }
 
 
@@ -27,13 +27,24 @@ Content-Type: application/json
 
 
 {
-  "id": 1,
-  "nombre": "Carlos",
-  "telefono": "3225479",
-  "ciudad": "Armenia",
-  "direccion": "Nueva dirección"
+  "idUser": 1,
+  "name": "Carlos",
+  "phone": "3225479",
+  "city": "Armenia",
+  "address": "Nueva dirección"
 }
 
 
 ### Eliminar un usuario
 DELETE http://localhost:8080/api/usuarios/1
+
+### Obtener todos los usuarios que tengan un nombre dado
+GET http://localhost:8080/api/usuarios?nombre=Carlos
+
+
+### Obtener todos los usuarios cuya ciudad de residencia sea Armenia
+GET http://localhost:8080/api/usuarios?ciudad=Armenia
+
+
+### Obtener todos los usuarios cuya ciudad de residencia sea Armenia y su nombre sea Carlos
+GET http://localhost:8080/api/usuarios?ciudad=Armenia&nombre=Carlos

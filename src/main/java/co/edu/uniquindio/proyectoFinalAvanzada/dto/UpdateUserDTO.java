@@ -7,7 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.UUID;
 
 public record UpdateUserDTO(
-        @NotNull UUID idUser,
+        @NotNull String idUser,
         @NotBlank @Length(max = 100) String name,
         @Length(max = 10) String phone,
         @NotBlank @Length(max = 100) String city,

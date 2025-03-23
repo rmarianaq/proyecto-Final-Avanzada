@@ -1,9 +1,6 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.controllers;
 
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.CreateUserDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.MessageDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.UpdateUserDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.UserDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.*;
 import co.edu.uniquindio.proyectoFinalAvanzada.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +12,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/usuarios")
-public class UserController {
+public class    UserController {
 
     private final UserService userService;
 
@@ -46,10 +43,12 @@ public class UserController {
         UserDTO info= userService.getUser(id);
         return ResponseEntity.ok(new MessageDTO<>(false, info));    }
 
+    /*
+    lista los usuarios por su nombre y ciudad
+     */
     @GetMapping
-    public ResponseEntity<MessageDTO<List<UserDTO>>> listAllUsers(@RequestParam(required = false) String name,
-                                                                  @RequestParam(required = false) String city){
-        List<UserDTO>list= userService.listAllUsers(name, city);
+    public ResponseEntity<MessageDTO<List<UserDTO>>> listAllUsers(@ModelAttribute UserFilterDTO filter){
+        List<UserDTO>list= userService.listAllUsers(filter);
         return ResponseEntity.ok(new MessageDTO<>(false, list));
     }
     //
