@@ -31,15 +31,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO getUser(String id) {
         return new UserDTO(
-                id
+                id,
+                "Armenia",
+                "luis"
         );
     }
 
     @Override
     public List<UserDTO> listAllUsers(UserFilterDTO filter) {
-        return List.of(
-                new UserDTO("1"),
-                new UserDTO("2")
+        List<UserDTO> users = List.of(
+                new UserDTO("1", "Armenia", "Carlos"),
+                new UserDTO("2", "Bogotá", "Laura"),
+                new UserDTO("3", "Bogotá", "Carlos"),
+                new UserDTO("4", "Armenia", "Sofía")
         );
+
+        return users.stream()
+                .filter(user -> filter.name() == null || user.name().equalsIgnoreCase(filter.name()))
+                .filter(user -> filter.city() == null || user.city().equalsIgnoreCase(filter.city()))
+                .toList();
     }
 }
