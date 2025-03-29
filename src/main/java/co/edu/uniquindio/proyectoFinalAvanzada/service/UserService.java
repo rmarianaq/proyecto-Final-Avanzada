@@ -17,4 +17,10 @@ public interface UserService {
     UserDTO getUser(String id);
 
     List<UserDTO> listAllUsers(UserFilterDTO filter);
+
+    void changePassword(String email, String code, String s);
+
+    void activateAccount(String email, String code);
+
+    void verificationCode(String email);
 }

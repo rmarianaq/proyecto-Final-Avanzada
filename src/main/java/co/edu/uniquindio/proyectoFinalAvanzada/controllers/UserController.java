@@ -1,10 +1,7 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.controllers;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.*;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.CreateUserDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UpdateUserDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UserDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UserFilterDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.*;
 import co.edu.uniquindio.proyectoFinalAvanzada.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -57,4 +54,19 @@ public class    UserController {
     }
     //
 
+    @PutMapping("/{email}/activate")
+    public ResponseEntity<MessageDTO<String>> activateAccount(@PathVariable String email, @Valid @RequestBody ActivateAccountDTO account) throws Exception{
+        userService.activateAccount(email, account.code());
+        return ResponseEntity.ok(new MessageDTO<>(false, "Cuenta activada exitosamente"));
+    }
+    @PutMapping("/{email}/password")
+    public ResponseEntity<MessageDTO<String>> changePassword(@PathVariable String email, @Valid @RequestBody ChangePasswordDTO account) throws Exception{
+        userService.changePassword(email, account.code(), account.newPass());
+        return ResponseEntity.ok(new MessageDTO<>(false, "Contrasenia cambiada exitosamente"));
+    }
+    @PostMapping("/{email}/verificationCode")
+    public ResponseEntity<MessageDTO<String>> verificationCode(@PathVariable String email) throws Exception{
+        userService.verificationCode(email);
+        return ResponseEntity.ok(new MessageDTO<>(false, "Codigo de verificacion enviado"));
+    }
 }

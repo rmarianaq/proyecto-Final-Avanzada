@@ -51,4 +51,19 @@ public class UserServiceImpl implements UserService {
                 .filter(user -> filter.city() == null || user.city().equalsIgnoreCase(filter.city()))
                 .toList();
     }
+
+    @Override
+    public void changePassword(String email, String code, String s) {
+
+    }
+
+    @Override
+    public void activateAccount(String email, String code) {
+
+    }
+
+    @Override
+    public void verificationCode(String email) {
+
+    }
 }
