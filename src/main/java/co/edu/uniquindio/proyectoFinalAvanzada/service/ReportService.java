@@ -1,9 +1,8 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.service;
 
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.CreateReportDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.ReportDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.UpdateReportDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.UserDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.CreateReportDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.ReportDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.UpdateReportDTO;
 
 import java.util.List;
 

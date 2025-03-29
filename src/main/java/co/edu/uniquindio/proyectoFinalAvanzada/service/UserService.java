@@ -1,9 +1,9 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.service;
 
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.CreateUserDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.UpdateUserDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.UserDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.UserFilterDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.CreateUserDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UpdateUserDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UserDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UserFilterDTO;
 
 import java.util.List;
 

@@ -1,6 +1,9 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.controllers;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.*;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.CreateReportDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.ReportDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.UpdateReportDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.service.ReportService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

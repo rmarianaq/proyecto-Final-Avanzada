@@ -1,6 +1,10 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.controllers;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.*;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.CreateUserDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UpdateUserDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UserDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UserFilterDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

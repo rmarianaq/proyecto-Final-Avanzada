@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyectoFinalAvanzada.dto;
+package co.edu.uniquindio.proyectoFinalAvanzada.dto.reports;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
 import jakarta.validation.constraints.Max;

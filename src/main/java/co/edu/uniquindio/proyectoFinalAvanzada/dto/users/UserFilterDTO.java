@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyectoFinalAvanzada.dto;
+package co.edu.uniquindio.proyectoFinalAvanzada.dto.users;
 
 public record UserFilterDTO(
         String name,
