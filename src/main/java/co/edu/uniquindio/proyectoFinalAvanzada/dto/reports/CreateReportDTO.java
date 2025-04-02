@@ -11,8 +11,8 @@ import org.hibernate.validator.constraints.Length;
 import java.util.List;
 
 public record CreateReportDTO(
-        @NotBlank @Length(max = 300) String titulo,
-        @NotBlank @Length(max = 1000) String descripcion,
+        @NotBlank @Length(max = 300) String title,
+        @NotBlank @Length(max = 1000) String description,
         @Min(-90) @Max(90) Double latitude,
         @Min(-180) @Max(180) Double longitude,
         @NotNull List<@NotBlank String> image,
