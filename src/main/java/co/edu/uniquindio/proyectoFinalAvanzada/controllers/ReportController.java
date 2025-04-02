@@ -1,9 +1,9 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.controllers;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.*;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.CreateReportDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.ReportDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.UpdateReportDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.*;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UserDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UserFilterDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.service.ReportService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -55,6 +55,30 @@ public class ReportController {
         return ResponseEntity.ok(new MessageDTO<>(false, list));
     }
     //
+    /*
+    Metodo para listar los reportes en un ubicacion en especifico
+     */
+    @GetMapping("/local")
+    public ResponseEntity<MessageDTO<List<ReportDTO>>> filterReportsLocation(@ModelAttribute LocationFilterDTO filter){
+        List<ReportDTO>list= reportService.filterReportsLocation(filter);
+        return ResponseEntity.ok(new MessageDTO<>(false, list));
+    }
+
+    @PostMapping("/{id}/comment")
+    public ResponseEntity<MessageDTO<String>> createComment(@PathVariable String id, @Valid @RequestBody CreateCommentDTO account) throws Exception{
+        reportService.createComment(id,account);
+        return ResponseEntity.ok(new MessageDTO<>(false, "Su Comentario se ha creado exitosamente"));
+    }
+    @DeleteMapping("/{id}/comment")
+    public ResponseEntity<MessageDTO<String>> deleteCommennt(@PathVariable String id) throws Exception{
+        reportService.deleteComment(id);
+        return ResponseEntity.ok(new MessageDTO<>(false, "Comentario eliminado exitosamente"));
+    }
+    @GetMapping("/{id}/comment")
+    public ResponseEntity<MessageDTO<ReportDTO>> listAllComments(@PathVariable String id) throws Exception{
+        ReportDTO info= reportService.getReport(id);
+        return ResponseEntity.ok(new MessageDTO<>(false, info));
+    }
 
 }
 

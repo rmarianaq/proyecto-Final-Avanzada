@@ -1,8 +1,6 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.service;
 
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.CreateReportDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.ReportDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.UpdateReportDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.*;
 
 import java.util.List;
 
@@ -16,4 +14,10 @@ public interface ReportService {
     ReportDTO getReport(String id);
 
     List<ReportDTO> listAllReports();
+
+    List<ReportDTO> filterReportsLocation(LocationFilterDTO filter);
+
+    void createComment(String id, CreateCommentDTO account);
+
+    void deleteComment(String id);
 }
