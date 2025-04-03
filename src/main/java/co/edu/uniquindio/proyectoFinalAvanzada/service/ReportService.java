@@ -17,7 +17,15 @@ public interface ReportService {
 
     List<ReportDTO> filterReportsLocation(LocationFilterDTO filter);
 
-    void createComment(String id, CreateCommentDTO account);
+    void createComment(String id, CommentDTO account);
 
     void deleteComment(String id);
+
+    List<CommentDTO> listAllComments(String id);
+
+    void markAsImportant(String id);
+
+    void changeStatus(String id, StatusDTO account);
+
+    List<StatusDTO> listAllStatus(String id);
 }

@@ -2,8 +2,6 @@ package co.edu.uniquindio.proyectoFinalAvanzada.controllers;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.*;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.*;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UserDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UserFilterDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.service.ReportService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -65,7 +63,7 @@ public class ReportController {
     }
 
     @PostMapping("/{id}/comment")
-    public ResponseEntity<MessageDTO<String>> createComment(@PathVariable String id, @Valid @RequestBody CreateCommentDTO account) throws Exception{
+    public ResponseEntity<MessageDTO<String>> createComment(@PathVariable String id, @Valid @RequestBody CommentDTO account) throws Exception{
         reportService.createComment(id,account);
         return ResponseEntity.ok(new MessageDTO<>(false, "Su Comentario se ha creado exitosamente"));
     }
@@ -75,10 +73,24 @@ public class ReportController {
         return ResponseEntity.ok(new MessageDTO<>(false, "Comentario eliminado exitosamente"));
     }
     @GetMapping("/{id}/comment")
-    public ResponseEntity<MessageDTO<ReportDTO>> listAllComments(@PathVariable String id) throws Exception{
-        ReportDTO info= reportService.getReport(id);
-        return ResponseEntity.ok(new MessageDTO<>(false, info));
+    public ResponseEntity<MessageDTO<List<CommentDTO>>> listAllComments(@PathVariable String id){
+        List<CommentDTO>list= reportService.listAllComments(id);
+        return ResponseEntity.ok(new MessageDTO<>(false, list));
     }
-
+    @PutMapping("/{id}/important")
+    public ResponseEntity<MessageDTO<String>> markAsImportant(@PathVariable String id) throws Exception{
+        reportService.markAsImportant(id);
+        return ResponseEntity.ok(new MessageDTO<>(false, "Reporte marcado como importante exitosamente"));
+    }
+    @PostMapping("/{id}/status")
+    public ResponseEntity<MessageDTO<String>> changeStatus(@PathVariable String id, @Valid @RequestBody StatusDTO account) throws Exception{
+        reportService.changeStatus(id,account);
+        return ResponseEntity.ok(new MessageDTO<>(false, "Su Comentario se ha creado exitosamente"));
+    }
+    @GetMapping("/{id}/status")
+    public ResponseEntity<MessageDTO<List<StatusDTO>>> listAllStatus(@PathVariable String id){
+        List<StatusDTO>list= reportService.listAllStatus(id);
+        return ResponseEntity.ok(new MessageDTO<>(false, list));
+    }
 }
 
