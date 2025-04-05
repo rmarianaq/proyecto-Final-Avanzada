@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyectoFinalAvanzada.controllers;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.*;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.*;
 import co.edu.uniquindio.proyectoFinalAvanzada.service.ReportService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/reports")
+@SecurityRequirement(name = "bearerAuth")
 public class ReportController {
 
     private final ReportService reportService;
@@ -20,6 +22,7 @@ public class ReportController {
     /*
     CRUD Reports
      */
+
     @PostMapping
     public ResponseEntity<MessageDTO<String>> createReport(@Valid @RequestBody CreateReportDTO account) throws Exception{
         reportService.createReport(account);

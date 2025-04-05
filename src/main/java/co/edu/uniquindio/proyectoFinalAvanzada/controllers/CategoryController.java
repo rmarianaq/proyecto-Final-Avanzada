@@ -5,6 +5,7 @@ import co.edu.uniquindio.proyectoFinalAvanzada.dto.categories.CategoryDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.categories.CreateCategoryDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.categories.UpdateCategoryDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.service.CategoryService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +29,14 @@ public class CategoryController {
         return ResponseEntity.ok(new MessageDTO<>(false, "La categoria de su reporte se ha creado exitosamente"));
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @PutMapping
     public ResponseEntity<MessageDTO<String>> updateCategory(@Valid @RequestBody UpdateCategoryDTO account) throws Exception{
         categoryService.updateCategory(account);
         return ResponseEntity.ok(new MessageDTO<>(false, "Categoria editada exitosamente"));
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @DeleteMapping("/{id}")
     public ResponseEntity<MessageDTO<String>> deleteCategory(@PathVariable String id)
             throws Exception{
@@ -49,6 +52,7 @@ public class CategoryController {
     /*
     lista los reportes
      */
+    @SecurityRequirement(name = "bearerAuth")
     @GetMapping
     public ResponseEntity<MessageDTO<List<CategoryDTO>>> listAllCategories(){
         List<CategoryDTO>list= categoryService.listAllReports();

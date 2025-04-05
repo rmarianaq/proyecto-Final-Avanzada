@@ -3,6 +3,7 @@ package co.edu.uniquindio.proyectoFinalAvanzada.controllers;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.*;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.*;
 import co.edu.uniquindio.proyectoFinalAvanzada.service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,19 +27,21 @@ public class UserController {
         return ResponseEntity.ok(new MessageDTO<>(false, "Su registro ha sido exitoso"));
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @PutMapping
     public ResponseEntity<MessageDTO<String>> updateUser(@Valid @RequestBody UpdateUserDTO account) throws Exception{
         userService.updateUser(account);
         return ResponseEntity.ok(new MessageDTO<>(false, "Cuenta editada exitosamente"));
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @DeleteMapping("/{id}")
     public ResponseEntity<MessageDTO<String>> deleteUser(@PathVariable String id)
             throws Exception{
         userService.deleteUser(id);
         return ResponseEntity.ok(new MessageDTO<>(false, "Cuenta eliminada exitosamente"));
     }
-
+    @SecurityRequirement(name = "bearerAuth")
     @GetMapping("/{id}")
     public ResponseEntity<MessageDTO<UserDTO>> getUser(@PathVariable String id) throws Exception{
         UserDTO info= userService.getUser(id);
@@ -47,6 +50,7 @@ public class UserController {
     /*
     lista los usuarios por su nombre y ciudad
      */
+    @SecurityRequirement(name = "bearerAuth")
     @GetMapping
     public ResponseEntity<MessageDTO<List<UserDTO>>> listAllUsers(@ModelAttribute UserFilterDTO filter){
         List<UserDTO>list= userService.listAllUsers(filter);
