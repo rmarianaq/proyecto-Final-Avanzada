@@ -27,8 +27,9 @@ public class NotificationController {
     private final NotificationService notificationService;
 
     @PostMapping("/{id}/send")
-    public ResponseEntity<MessageDTO<SendNotificationDTO>> sendNotification(@PathVariable String idReport, @RequestBody SendNotificationDTO sendNotificationDTO){
-        return ResponseEntity.ok(new MessageDTO<>(false, null));
+    public ResponseEntity<MessageDTO<String>> sendNotification(@PathVariable String id, @RequestBody SendNotificationDTO account){
+        notificationService.sendNotification(id, account);
+        return ResponseEntity.ok(new MessageDTO<>(false, "Notificación enviada con éxito"));
     }
 
     @GetMapping
