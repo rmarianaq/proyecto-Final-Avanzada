@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Getter
 @Setter
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -17,6 +17,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Notification {
 
     @Id
+    @EqualsAndHashCode.Include
     private String idNotification;
 
     private ObjectId idUser;

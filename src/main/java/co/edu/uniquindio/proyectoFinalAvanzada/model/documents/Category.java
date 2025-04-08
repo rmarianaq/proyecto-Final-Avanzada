@@ -11,11 +11,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Builder
 
 public class Category {
     @Id
+    @EqualsAndHashCode.Include
     private String id;
 
     private String name;

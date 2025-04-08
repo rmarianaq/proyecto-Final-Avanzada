@@ -9,21 +9,22 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 import java.util.List;
 
-@Document("report")
+@Document("reports")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @ToString
-
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Report {
 
     @Id
+    @EqualsAndHashCode.Include
     private String id;
 
     private String title;
-    private ObjectId category;
+    private List<ObjectId> category;
     private String city;
     private String description;
     private Location location;

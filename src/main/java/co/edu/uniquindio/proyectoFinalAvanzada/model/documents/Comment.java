@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Document("comment")
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -18,6 +18,7 @@ import java.util.Date;
 public class Comment {
 
     @Id
+    @EqualsAndHashCode.Include
     private String idComment;
 
     private ObjectId idUser;

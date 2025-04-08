@@ -6,17 +6,19 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("user")
+@Document("users")
 @AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
 
 public class User {
 
     @Id
+    @EqualsAndHashCode.Include
     private String id;
 
     private Rol rol;
