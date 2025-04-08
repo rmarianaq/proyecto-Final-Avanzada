@@ -4,6 +4,7 @@ import co.edu.uniquindio.proyectoFinalAvanzada.dto.LoginDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.MessageDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.CreateUserDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.service.AuthenticationService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
+
+    @Operation (summary = "user authentication", description = "allows the user to authenticate")
     @PostMapping("/login")
     public ResponseEntity<MessageDTO<String>> login(@Valid @RequestBody LoginDTO account) throws Exception{
         authenticationService.login(account);
