@@ -1,9 +1,11 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.model.documents;
 
-import co.edu.uniquindio.proyectoFinalAvanzada.model.vo.Location;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexType;
+import org.springframework.data.mongodb.core.index.GeoSpatialIndexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
@@ -27,8 +29,10 @@ public class Report {
     private List<ObjectId> category;
     private String city;
     private String description;
-    private Location location;
+    @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)//permite que Mongo cree un índice especial que entiende latitud/longitud, necesario para consultas $near.
+    private GeoJsonPoint location;
     private Date date;
     private List<String> pictures;
+    private User user;
 
 }

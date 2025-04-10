@@ -10,15 +10,11 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends MongoRepository<User, String> {
-    // Buscar usuario por correo
-    @Query("{ 'email' : ?0 }")
-    Optional<User> searchUserByEmail(String email);
 
-    // Buscar usuario por nombre de usuario
-    @Query("{ 'username' : ?0 }")
-    Optional<User> searchUserByUsername(String username);
+    //Busca usuarios por el nombre y la ciudad
+    @Query("{ 'name' : ?0, 'city' : ?1 }")
+    List<User> findByNameCity(String name, String city);
 
-    // Buscar usuarios con más de X reportes
-    @Query("{ 'reports' : { $size : { $gt: ?0 } } }")
-    List<User> searchUserByrangeOfXReports(int amount);
+    Optional<User> findByEmail(String email);
+
 }

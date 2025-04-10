@@ -26,5 +26,6 @@ public class User {
     private String city;
     private String phone;
     private String email;
+    private String password;
     private String address;
 }

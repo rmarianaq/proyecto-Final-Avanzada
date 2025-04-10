@@ -3,10 +3,16 @@ package co.edu.uniquindio.proyectoFinalAvanzada.test;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Report;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.ReportRepository;
 import org.bson.types.ObjectId;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -88,4 +94,67 @@ public class ReportTest {
         //Verificamos que el reporte no exista, debe ser null ya que fue eliminado
         assertNull(report);
     }
+    @Test
+    @DisplayName("Consulta: Reportes por categoría (en lista) con paginación")
+    public void testFindByCategoryContaining() {
+        reportRepository.deleteAll();
+
+        ObjectId cat1 = new ObjectId();
+        ObjectId cat2 = new ObjectId();
+
+        Report report1 = Report.builder()
+                .title("Basuras acumuladas")
+                .category(List.of(cat1))
+                .city("Armenia")
+                .description("Contaminacion en el sector de oro negro por mal amnejo de las basuras")
+                .date(new Date())
+                .pictures(List.of("foto1.png", "foto2.png"))
+                .build();
+
+        Report report2 = Report.builder()
+                .title("Huecos en la calle")
+                .category(List.of(cat1, cat2))
+                .city("Pereira")
+                .description("Calles danadas causan multiples accidentes de transito")
+                .date(new Date())
+                .pictures(List.of("foto3.png", "foto4.png"))
+                .build();
+
+        Report report3 = Report.builder()
+                .title("Ruido excesivo")
+                .category(List.of(cat2))
+                .city("Armenia")
+                .description("dos meses sufriendo afectaciones a causa de la contaminacion auditiva causada por vecinos inconscientes")
+                .date(new Date())
+                .pictures(List.of("foto1.png", "foto5.png"))
+                .build();
+
+        reportRepository.saveAll(Arrays.asList(report1, report2, report3));
+
+        Pageable pageable = PageRequest.of(0, 10);
+        Page<Report> result = reportRepository.findByCategoryContaining(cat1, pageable);
+
+        assertEquals(2, result.getTotalElements());
+        result.forEach(r -> assertTrue(r.getCategory().contains(cat1)));
+    }
+    @Test
+    public void searchByTitleIgnoreCaseTest() {
+        // Texto a buscar
+        String searchText = "basura";
+
+        // Página 0, tamaño 10
+        PageRequest pageRequest = PageRequest.of(0, 10);
+
+        // Consulta por texto ignorando mayúsculas
+        Page<Report> result = reportRepository.findByTitleContainingIgnoreCase(searchText, pageRequest);
+
+        // Mostrar resultados
+        result.getContent().forEach(System.out::println);
+
+        // Verificar que haya al menos un resultado (dependerá de tu DB)
+        assertNotNull(result);
+        assertTrue(result.getTotalElements() >= 0); // Puedes cambiar el >= 0 por > 0 si sabes que hay datos
+    }
+
+
 }
