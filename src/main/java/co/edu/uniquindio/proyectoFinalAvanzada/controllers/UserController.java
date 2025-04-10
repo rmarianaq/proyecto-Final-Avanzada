@@ -40,8 +40,7 @@ public class UserController {
     @SecurityRequirement(name = "bearerAuth")
     @Operation(summary = "Delete user profile", description = "lets the user delete their account")
     @DeleteMapping("/{id}")
-    public ResponseEntity<MessageDTO<String>> deleteUser(@PathVariable String id)
-            throws Exception{
+    public ResponseEntity<MessageDTO<String>> deleteUser(@PathVariable String id) throws Exception{
         userService.deleteUser(id);
         return ResponseEntity.ok(new MessageDTO<>(false, "Cuenta eliminada exitosamente"));
     }

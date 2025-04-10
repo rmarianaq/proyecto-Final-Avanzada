@@ -47,4 +47,4 @@ GET http://localhost:8080/api/users?city=Armenia
 
 
 ### Obtener todos los usuarios cuya ciudad de residencia sea Armenia y su nombre sea Carlos
-GET http://localhost:8080/api/users?city=Armenia&name=Carlos
+GET http://localhost:8080/api/users?name=Carlos&city=armenia&page=0

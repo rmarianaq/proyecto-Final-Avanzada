@@ -8,19 +8,19 @@ import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UserFilterDTO;
 import java.util.List;
 
 public interface UserService {
-    void createUser(CreateUserDTO account);
+    void createUser(CreateUserDTO account) throws Exception;
 
-    void updateUser(UpdateUserDTO account);
+    void updateUser(UpdateUserDTO account) throws Exception;
 
-    void deleteUser(String id);
+    void deleteUser(String id) throws Exception;
 
-    UserDTO getUser(String id);
+    UserDTO getUser(String id) throws Exception;
 
     List<UserDTO> listAllUsers(UserFilterDTO filter);
 
-    void changePassword(String email, String code, String s);
+    void changePassword(String email, String code, String s)throws Exception;
 
-    void activateAccount(String email, String code);
+    void activateAccount(String email, String code) throws Exception;
 
-    void verificationCode(String email);
+    void verificationCode(String email) throws Exception;
 }

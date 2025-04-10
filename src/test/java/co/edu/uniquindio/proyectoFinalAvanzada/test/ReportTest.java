@@ -1,6 +1,8 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.test;
 
+import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Category;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Report;
+import co.edu.uniquindio.proyectoFinalAvanzada.repositories.CategoryRepository;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.ReportRepository;
 import org.bson.types.ObjectId;
 import org.junit.jupiter.api.DisplayName;
@@ -24,12 +26,17 @@ public class ReportTest {
     @Autowired //para que sea inicializada automáticamente por Spring.
     private ReportRepository reportRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
     @Test
     public void createTest() {
         List<ObjectId> categories = List.of(
                 new ObjectId("67f58810cbfef4113e8268de"),
                 new ObjectId("67f5886fd6eb5453d92ef096")
         );
+        Category category = categoryRepository.findById(String.valueOf(categories))
+                .orElseThrow(() -> new IllegalArgumentException("La categoria no existe"));
         //Creamos un reporte con sus propiedades
         Report report = Report.builder()
                 .title("Incendio en refugio canino")
