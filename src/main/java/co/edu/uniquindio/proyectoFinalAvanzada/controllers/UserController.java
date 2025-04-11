@@ -2,7 +2,7 @@ package co.edu.uniquindio.proyectoFinalAvanzada.controllers;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.*;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.*;
-import co.edu.uniquindio.proyectoFinalAvanzada.service.UserService;
+import co.edu.uniquindio.proyectoFinalAvanzada.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
@@ -77,7 +77,7 @@ public class UserController {
     @Operation(summary = "Verification code", description = "Allow the user request for a new verification code if they have not submitted one")
     @PostMapping("/{email}/verificationCode")
     public ResponseEntity<MessageDTO<String>> verificationCode(@PathVariable String email) throws Exception{
-        userService.verificationCode(email);
+        userService.sendVerificationCode(email);
         return ResponseEntity.ok(new MessageDTO<>(false, "Codigo de verificacion enviado"));
     }
 }

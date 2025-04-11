@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyectoFinalAvanzada.service;
+package co.edu.uniquindio.proyectoFinalAvanzada.services;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.CreateUserDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UpdateUserDTO;
@@ -18,9 +18,9 @@ public interface UserService {
 
     List<UserDTO> listAllUsers(UserFilterDTO filter);
 
-    void changePassword(String email, String code, String s)throws Exception;
+    void changePassword(String email, String code, String newPass)throws Exception;
 
     void activateAccount(String email, String code) throws Exception;
 
-    void verificationCode(String email) throws Exception;
+    void sendVerificationCode(String email) throws Exception;
 }

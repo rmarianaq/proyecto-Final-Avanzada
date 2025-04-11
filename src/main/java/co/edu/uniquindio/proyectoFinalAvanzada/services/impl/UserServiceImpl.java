@@ -1,14 +1,19 @@
-package co.edu.uniquindio.proyectoFinalAvanzada.service.impl;
+package co.edu.uniquindio.proyectoFinalAvanzada.services.impl;
 
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.EmailDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.CreateUserDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UpdateUserDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UserDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.UserFilterDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.exceptions.EmailNotValidException;
+import co.edu.uniquindio.proyectoFinalAvanzada.exceptions.UserNotFoundException;
 import co.edu.uniquindio.proyectoFinalAvanzada.mapper.UserMapper;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.User;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.UserStatus;
+import co.edu.uniquindio.proyectoFinalAvanzada.model.vo.ValidationCode;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.UserRepository;
-import co.edu.uniquindio.proyectoFinalAvanzada.service.UserService;
+import co.edu.uniquindio.proyectoFinalAvanzada.services.EmailService;
+import co.edu.uniquindio.proyectoFinalAvanzada.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.PageRequest;
@@ -17,9 +22,11 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.security.SecureRandom;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service //es una anotación de Spring que indica que esta clase es un servicio. Se usa en la capa de servicio para manejar la lógica de negocio.
 @RequiredArgsConstructor
@@ -28,14 +35,19 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     private final MongoTemplate mongoTemplate;
+    private final EmailService emailService;
 
 
     @Override
     public void createUser(CreateUserDTO account) throws Exception {
         User user = userMapper.toDocument(account);
         if( emailExist(account.email()) ){
-            throw new Exception("El correo "+account.email()+" ya está en uso");
+            throw new EmailNotValidException("El correo "+account.email()+" ya está en uso");
         }
+
+        //Enviar un email con el codigo de activacion
+        sendVerificationCode(account.email());
+
         userRepository.save(user);
     }
     private boolean emailExist(String email) {
@@ -46,7 +58,7 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UpdateUserDTO account) throws Exception {
         //Validamos el id
         if (!ObjectId.isValid(account.idUser())) {
-            throw new Exception("No se encontró el usuario con el id "+account.idUser());
+            throw new UserNotFoundException("No se encontró el usuario con el id "+account.idUser());
         }
 
         //Buscamos el usuario que se quiere actualizar
@@ -56,7 +68,7 @@ public class UserServiceImpl implements UserService {
 
         //Si no se encontró el usuario, lanzamos una excepción
         if(userOptional.isEmpty()){
-            throw new Exception("No se encontró el usuario con el id "+account.idUser());
+            throw new UserNotFoundException("No se encontró el usuario con el id "+account.idUser());
         }
 
 
@@ -74,7 +86,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(String id) throws Exception {
         //Validamos el id
         if (!ObjectId.isValid(id)) {
-            throw new Exception("No se encontró el usuario con el id "+id);
+            throw new UserNotFoundException("No se encontró el usuario con el id "+id);
         }
 
         //Buscamos el usuario que se quiere obtener
@@ -83,7 +95,7 @@ public class UserServiceImpl implements UserService {
 
         //Si no se encontró el usuario, lanzamos una excepción
         if(userOptional.isEmpty()){
-            throw new Exception("No se encontró el usuario con el id "+id);
+            throw new UserNotFoundException("No se encontró el usuario con el id "+id);
         }
 
         //Obtenemos el usuario que se quiere eliminar y le asignamos el estado eliminado
@@ -99,7 +111,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUser(String id) throws Exception {
         //Validamos el id
         if (!ObjectId.isValid(id)) {
-            throw new Exception("No se encontró el usuario con el id "+id);
+            throw new UserNotFoundException("No se encontró el usuario con el id "+id);
         }
 
         //Buscamos el usuario que se quiere obtener
@@ -108,7 +120,7 @@ public class UserServiceImpl implements UserService {
 
         //Si no se encontró el usuario, lanzamos una excepción
         if(userOptional.isEmpty()){
-            throw new Exception("No se encontró el usuario con el id "+id);
+            throw new UserNotFoundException("No se encontró el usuario con el id "+id);
         }
 
         //Retornamos el usuario encontrado convertido a DTO
@@ -130,8 +142,8 @@ public class UserServiceImpl implements UserService {
         }
 
 
-        if (filter.city() != null && !filter.city().isEmpty()) {
-            criteria.and("ciudad").regex(filter.city(), "i");
+        if (filter.nameMunicipality() != null && !filter.nameMunicipality().isEmpty()) {
+            criteria.and("municipality").regex(filter.nameMunicipality(), "i");
         }
 
 
@@ -150,17 +162,97 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changePassword(String email, String code, String s) throws Exception {
+    public void changePassword(String email, String code, String newPass) throws Exception {
 
+        Optional<User> userOptional = userRepository.findByEmail(email);
+
+        if(userOptional.isEmpty()){
+            throw new UserNotFoundException("El correo no existe");
+        }
+        User user = userOptional.get();
+
+        if( user.getValidationCode() == null ){
+            throw new Exception("No hay un codigo de validacion");
+        }
+
+        if(! user.getValidationCode().getCode().equals(code) ){
+            throw new Exception("El codigo de validacion es incorrecto");
+        }
+
+        if(!LocalDateTime.now().isBefore( user.getValidationCode().getDate().plusMinutes(15) )){
+            throw new Exception("El codigo de validacion ya expiro");
+        }
+        user.setPassword(newPass);
+        userRepository.save(user);
     }
 
     @Override
     public void activateAccount(String email, String code) throws Exception {
 
+        Optional<User> userOptional = userRepository.findByEmail(email);
+
+        if(userOptional.isEmpty()){
+            throw new UserNotFoundException("El correo no existe");
+        }
+        User user = userOptional.get();
+
+        if( user.getValidationCode() == null ){
+            throw new Exception("No hay un codigo de validacion");
+        }
+
+        if(! user.getValidationCode().getCode().equals(code) ){
+            throw new Exception("El codigo de validacion es incorrecto");
+        }
+
+        if(!LocalDateTime.now().isBefore( user.getValidationCode().getDate().plusMinutes(15) )){
+            throw new Exception("El codigo de validacion ya expiro");
+        }
+
+        user.setStatus(UserStatus.ACTIVE);
+        userRepository.save(user);
+
     }
 
     @Override
-    public void verificationCode(String email) throws Exception {
+    public void sendVerificationCode(String email) throws Exception {
 
+        Optional<User> userOptional = userRepository.findByEmail(email);
+
+        if(userOptional.isEmpty()){
+            throw new UserNotFoundException("El correo no existe");
+        }
+
+        String code = generateAlphaNumericCode(9);
+        ValidationCode validationCode = new ValidationCode(code, LocalDateTime.now());
+        User user = userOptional.get();
+
+        user.setValidationCode(validationCode);
+        userRepository.save(user);
+
+        String subject = "Código de verificación de tu cuenta";
+        String body = "Hola " + user.getName() + ",\n\nTu código de verificación es: " + code +
+                "\nEste código expirará en 15 minutos.\n\nGracias.";
+
+        // Crear DTO y enviar correo
+        EmailDTO emailDTO = new EmailDTO(subject, body, email);
+
+        try {
+            emailService.sendEmail(emailDTO);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al enviar el correo de verificación", e);
+        }
+
+    }
+    public String generateAlphaNumericCode(int length) {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        SecureRandom random = new SecureRandom();
+        StringBuilder sb = new StringBuilder(length);
+
+        for (int i = 0; i < length; i++) {
+            int index = random.nextInt(characters.length());
+            sb.append(characters.charAt(index));
+        }
+
+        return sb.toString();
     }
 }

@@ -2,8 +2,7 @@ package co.edu.uniquindio.proyectoFinalAvanzada.controllers;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.LoginDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.MessageDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.users.CreateUserDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.service.AuthenticationService;
+import co.edu.uniquindio.proyectoFinalAvanzada.services.AuthenticationService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

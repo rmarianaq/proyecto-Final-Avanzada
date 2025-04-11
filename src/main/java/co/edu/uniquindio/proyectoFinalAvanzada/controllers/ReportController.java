@@ -2,7 +2,7 @@ package co.edu.uniquindio.proyectoFinalAvanzada.controllers;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.*;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.*;
-import co.edu.uniquindio.proyectoFinalAvanzada.service.ReportService;
+import co.edu.uniquindio.proyectoFinalAvanzada.services.ReportService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;

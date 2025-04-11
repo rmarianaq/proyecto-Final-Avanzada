@@ -1,8 +1,16 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.model.vo;
 
-import java.time.LocalDate;
+import lombok.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@AllArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
 public class ValidationCode {
     private String code;
-    private LocalDate date;
+    private LocalDateTime date;
 }

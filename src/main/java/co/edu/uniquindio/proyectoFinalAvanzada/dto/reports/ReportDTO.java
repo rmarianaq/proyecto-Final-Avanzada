@@ -12,9 +12,8 @@ public record ReportDTO(
         Double latitude,
         Double longitude,
         List<String> image,
-        String idCategory,
+        String nameCategory,
         ReportStatus status,
-        LocalDateTime date,
-        String userId
+        LocalDateTime date
 ) {
 }

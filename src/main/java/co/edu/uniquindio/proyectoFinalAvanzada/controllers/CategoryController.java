@@ -4,7 +4,7 @@ import co.edu.uniquindio.proyectoFinalAvanzada.dto.MessageDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.categories.CategoryDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.categories.CreateCategoryDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.categories.UpdateCategoryDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.service.CategoryService;
+import co.edu.uniquindio.proyectoFinalAvanzada.services.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;

@@ -4,10 +4,7 @@ import co.edu.uniquindio.proyectoFinalAvanzada.dto.MessageDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.notification.NotificationDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.notification.NotificationUpdateDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.notification.SendNotificationDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.ReportDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.UpdateReportDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.service.NotificationService;
-import co.edu.uniquindio.proyectoFinalAvanzada.service.ReportService;
+import co.edu.uniquindio.proyectoFinalAvanzada.services.NotificationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -16,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController

@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyectoFinalAvanzada.service;
+package co.edu.uniquindio.proyectoFinalAvanzada.services;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.LoginDTO;
 

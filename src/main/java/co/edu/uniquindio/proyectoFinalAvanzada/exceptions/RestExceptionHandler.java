@@ -28,6 +28,17 @@ public class RestExceptionHandler {
         return ResponseEntity.status(404).body( new MessageDTO<>(true, "El recurso no fue encontrado") );
     }
 
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<MessageDTO<String>> userNotFoundExceptionHandler (UserNotFoundException ex){
+        return ResponseEntity.status(404).body( new MessageDTO<>(true, ex.getMessage()) );
+    }
+
+
+    @ExceptionHandler(EmailNotValidException.class)
+    public ResponseEntity<MessageDTO<String>> userNotFoundExceptionHandler (EmailNotValidException ex){
+        return ResponseEntity.status(409).body( new MessageDTO<>(true, ex.getMessage()) );
+    }
+
     /*
     Excepción general de Java. Lo ideal es tener excepciones propias para cada tipo de error y no ponerle a todas las excepciones simplemente Exception.
      */

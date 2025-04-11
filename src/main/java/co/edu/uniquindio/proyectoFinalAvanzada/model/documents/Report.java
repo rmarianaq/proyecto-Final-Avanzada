@@ -35,4 +35,5 @@ public class Report {
     private List<String> pictures;
     private User user;
 
+
 }

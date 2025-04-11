@@ -1,7 +1,7 @@
-package co.edu.uniquindio.proyectoFinalAvanzada.service.impl;
+package co.edu.uniquindio.proyectoFinalAvanzada.services.impl;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.*;
-import co.edu.uniquindio.proyectoFinalAvanzada.service.ReportService;
+import co.edu.uniquindio.proyectoFinalAvanzada.services.ReportService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

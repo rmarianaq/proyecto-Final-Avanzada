@@ -1,4 +1,4 @@
-package co.edu.uniquindio.proyectoFinalAvanzada.test;
+package co.edu.uniquindio.proyectoFinalAvanzada.test.dataBaseBehavior;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Category;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Report;

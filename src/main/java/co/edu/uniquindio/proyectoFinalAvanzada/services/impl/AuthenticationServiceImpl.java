@@ -1,7 +1,7 @@
-package co.edu.uniquindio.proyectoFinalAvanzada.service.impl;
+package co.edu.uniquindio.proyectoFinalAvanzada.services.impl;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.LoginDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.service.AuthenticationService;
+import co.edu.uniquindio.proyectoFinalAvanzada.services.AuthenticationService;
 import org.springframework.stereotype.Service;
 
 @Service
