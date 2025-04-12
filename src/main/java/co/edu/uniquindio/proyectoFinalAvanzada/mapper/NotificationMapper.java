@@ -10,17 +10,17 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface NotificationMapper {
 
-    //Mapeo de Notificación -> NotificacionDTO (solo ID)
-    @Mapping(target = "id", source = "idNotification")
-    Notification toDocument(NotificationDTO notificationDTO);
-
-    NotificationDTO toDto(Notification notification);
-
-
-    //Mapeo de NotificaciónDTO -> Notificacion (solo ID)
-    @Mapping(target = "idNotification", source = "id")
-    Notification toEntity(NotificationDTO dto);
-
-    void toDocument(NotificationUpdateDTO notificationUpdateDTO, @MappingTarget Notification notification);
+//    //Mapeo de Notificación -> NotificacionDTO (solo ID)
+//    @Mapping(target = "id", source = "idNotification")
+//    Notification toDocument(NotificationDTO notificationDTO);
+//
+//    NotificationDTO toDto(Notification notification);
+//
+//
+//    //Mapeo de NotificaciónDTO -> Notificacion (solo ID)
+//    @Mapping(target = "idNotification", source = "id")
+//    Notification toEntity(NotificationDTO dto);
+//
+//    void toDocument(NotificationUpdateDTO notificationUpdateDTO, @MappingTarget Notification notification);
 
 }

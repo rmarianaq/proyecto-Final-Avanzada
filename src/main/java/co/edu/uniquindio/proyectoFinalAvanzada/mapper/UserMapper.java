@@ -26,5 +26,12 @@ public interface UserMapper {
         return value != null ? value.toString() : null;
     }
 
+//    @Mapping(target = "idUser", ignore = true)
+//    @Mapping(target = "status", ignore = true)
+//    @Mapping(target = "rol", ignore = true)
+//    @Mapping(target = "registerDate", ignore = true)
+//    @Mapping(target = "validationCode", ignore = true)
+//    @Mapping(target = "email", ignore = true)
+//    @Mapping(target = "password", ignore = true)
     void toDocument(UpdateUserDTO updateUserDTO, @MappingTarget User user);
 }

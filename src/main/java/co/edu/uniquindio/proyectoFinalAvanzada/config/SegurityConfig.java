@@ -38,7 +38,18 @@ public class SegurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**",
+                                "/api/users",
+                                "/api/users/{email}/activate",
+                                "/api/users/{email}/password",
+                                "/api/users/{email}/verificationCode",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**"
+                                ).permitAll()
+                        .requestMatchers("/api/users/**").authenticated()
+                        .requestMatchers("/api/reports/**").authenticated()
+                        .requestMatchers("/api/categories/**").hasRole("ADMIN")
+                        .requestMatchers("/api/notifications/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex.authenticationEntryPoint( new AutenticacionEntryPoint() ))

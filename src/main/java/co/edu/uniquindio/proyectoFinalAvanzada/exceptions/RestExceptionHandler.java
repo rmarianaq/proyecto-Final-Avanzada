@@ -32,6 +32,10 @@ public class RestExceptionHandler {
     public ResponseEntity<MessageDTO<String>> userNotFoundExceptionHandler (UserNotFoundException ex){
         return ResponseEntity.status(404).body( new MessageDTO<>(true, ex.getMessage()) );
     }
+    @ExceptionHandler(ReportNotFoundException.class)
+    public ResponseEntity<MessageDTO<String>> reportNotFoundExceptionHandler (ReportNotFoundException ex){
+        return ResponseEntity.status(404).body( new MessageDTO<>(true, ex.getMessage()) );
+    }
 
 
     @ExceptionHandler(EmailNotValidException.class)
