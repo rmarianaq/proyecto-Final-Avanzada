@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.dto.users;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.Municipality;
+import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.Rol;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import org.hibernate.validator.constraints.Length;

@@ -8,8 +8,8 @@ import java.util.List;
 public interface NotificationRepository extends MongoRepository<Notification, String> {
 
     // Buscar notificaciones por usuario
-    List<Notification> findByUserId(String userId);
+    List<Notification> findByIdUser(String idUser);
 
     // Buscar notificaciones no leídas
-    List<Notification> findByUserIdAndReadFalse(String userId);
+    List<Notification> findByIdUserAndReadFalse(String userId);
 }

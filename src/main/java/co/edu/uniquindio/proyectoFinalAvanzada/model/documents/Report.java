@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.model.documents;
 
+import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
 import lombok.*;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
@@ -34,6 +35,7 @@ public class Report {
     private Date date;
     private List<String> pictures;
     private User user;
+    private ReportStatus status;
 
 
 }
