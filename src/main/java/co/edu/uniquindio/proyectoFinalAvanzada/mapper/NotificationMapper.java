@@ -12,10 +12,10 @@ public interface NotificationMapper {
 
     //Mapeo de Notificación -> NotificacionDTO (solo ID)
     @Mapping(target = "id", source = "idNotification")
-    NotificationDTO toDto(Notification notification);
     Notification toDocument(NotificationDTO notificationDTO);
 
-    NotificationDTO toDTO(Notification notification);
+    NotificationDTO toDto(Notification notification);
+
 
     //Mapeo de NotificaciónDTO -> Notificacion (solo ID)
     @Mapping(target = "idNotification", source = "id")
