@@ -16,7 +16,7 @@ public interface UserMapper {
     @Mapping(target = "rol", constant = "CLIENT")
     @Mapping(target = "status", constant = "INACTIVE")
     @Mapping(target = "registerDate", expression = "java(java.time.LocalDateTime.now())")
-    User toDocument(CreateUserDTO createUserDTODTO);
+    User toDocument(CreateUserDTO createUserDTO);
 
 
     UserDTO toDTO(User user);
