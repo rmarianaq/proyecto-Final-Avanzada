@@ -14,14 +14,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Document(collection = "users")
-@AllArgsConstructor
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Builder
-
 public class User {
 
     @Id
@@ -41,4 +38,21 @@ public class User {
     private LocalDateTime registerDate;
 
     private List<ObjectId> subscribeReports;
+
+    @Builder
+    public User(String id, Rol rol, UserStatus status, String name, String city, String phone, String email, String password, String address, Municipality municipality, ValidationCode validationCode, LocalDateTime registerDate, List<ObjectId> subscribeReports) {
+        this.id = id;
+        this.rol = rol;
+        this.status = status;
+        this.name = name;
+        this.city = city;
+        this.phone = phone;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.municipality = municipality;
+        this.validationCode = validationCode;
+        this.registerDate = registerDate;
+        this.subscribeReports = subscribeReports;
+    }
 }

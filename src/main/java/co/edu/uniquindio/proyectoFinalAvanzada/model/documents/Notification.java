@@ -24,5 +24,5 @@ public class Notification {
     private ObjectId idReport;
     private String notificationTitle;
     private String textComment;
-    private boolean state;
+    private boolean read;
 }
