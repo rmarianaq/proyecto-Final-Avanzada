@@ -9,7 +9,6 @@ import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Report;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.CommentRepository;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.ReportRepository;
-import co.edu.uniquindio.proyectoFinalAvanzada.services.EmailService;
 import co.edu.uniquindio.proyectoFinalAvanzada.services.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
@@ -28,7 +27,6 @@ import java.util.Optional;
 public class ReportServiceImpl implements ReportService {
 
     private final MongoTemplate mongoTemplate;
-    private final EmailService emailService;
     private final ReportRepository reportRepository;
     private final ReportMapper reportMapper;
     private final CommentMapper commentMapper;
