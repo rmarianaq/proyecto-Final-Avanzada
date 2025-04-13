@@ -14,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.geo.GeoJsonPoint;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -43,7 +45,7 @@ public class ReportTest {
                 .category(categories)
                 .city("Armenia")
                 .description("En las horas de la tarde se presento un fuerte incendio en el refugio patitas pet")
-                .date(new Date())
+                .date(LocalDateTime.now())
                 .pictures(List.of("foto1.png", "foto2.png"))
                 .build();
 
@@ -114,7 +116,7 @@ public class ReportTest {
                 .category(List.of(cat1))
                 .city("Armenia")
                 .description("Contaminacion en el sector de oro negro por mal amnejo de las basuras")
-                .date(new Date())
+                .date(LocalDateTime.now())
                 .pictures(List.of("foto1.png", "foto2.png"))
                 .build();
 
@@ -123,7 +125,7 @@ public class ReportTest {
                 .category(List.of(cat1, cat2))
                 .city("Pereira")
                 .description("Calles danadas causan multiples accidentes de transito")
-                .date(new Date())
+                .date(LocalDateTime.now())
                 .pictures(List.of("foto3.png", "foto4.png"))
                 .build();
 
@@ -132,7 +134,7 @@ public class ReportTest {
                 .category(List.of(cat2))
                 .city("Armenia")
                 .description("dos meses sufriendo afectaciones a causa de la contaminacion auditiva causada por vecinos inconscientes")
-                .date(new Date())
+                .date(LocalDateTime.now())
                 .pictures(List.of("foto1.png", "foto5.png"))
                 .build();
 

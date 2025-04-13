@@ -12,8 +12,8 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface ReportMapper {
 
-    @Mapping(target = "status", constant = "PENDING")
-    @Mapping(target = "date", expression = "java(java.time.LocalDateTime.now())")
+  //  @Mapping(target = "status", constant = "PENDING")
+   // @Mapping(target = "date", expression = "java(java.time.LocalDateTime.now())")
     Report toDocument(CreateReportDTO createReportDTO);
 
 
