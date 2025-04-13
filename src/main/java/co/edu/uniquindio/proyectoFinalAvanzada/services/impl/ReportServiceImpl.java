@@ -4,13 +4,18 @@ import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.*;
 import co.edu.uniquindio.proyectoFinalAvanzada.exceptions.ReportNotFoundException;
 import co.edu.uniquindio.proyectoFinalAvanzada.mapper.ReportMapper;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Report;
+import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.User;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.ReportRepository;
 import co.edu.uniquindio.proyectoFinalAvanzada.services.EmailService;
 import co.edu.uniquindio.proyectoFinalAvanzada.services.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.geo.Circle;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -105,12 +110,42 @@ public class ReportServiceImpl implements ReportService {
 
     @Override
     public List<ReportDTO> listAllReports() {
-        return null;
+        return reportRepository.findAll()
+                .stream()
+                .map(reportMapper::toDTO)
+                .toList();
     }
 
     @Override
     public List<ReportDTO> filterReportsLocation(LocationFilterDTO filter) {
-        return null;
+        // Validar que la página no sea menor a 0
+        if (filter.page() < 0) {
+            throw new RuntimeException("La página no puede ser menor a 0");
+        }
+
+        // Validar que latitud, longitud y radio no sean nulos
+        if (filter.latitude() == null || filter.longitude() == null || filter.radiusKm() == null) {
+            throw new RuntimeException("Debes proporcionar latitud, longitud y radio");
+        }
+
+        // Convertir el radio de kilómetros a radianes (Mongo usa radianes en $centerSphere)
+        double radiusInRadians = filter.radiusKm() / 6378.1; // Radio aproximado de la Tierra en km
+
+        // Construir el criterio geoespacial
+        Criteria criteria = Criteria.where("location").withinSphere(
+                new Circle(filter.longitude(), filter.latitude(), radiusInRadians)
+        );
+
+        // Crear la consulta con paginación de 5 elementos por página
+        Query query = new Query(criteria).with(PageRequest.of(filter.page(), 5));
+
+        // Ejecutar la consulta
+        List<Report> reports = mongoTemplate.find(query, Report.class);
+
+        // Convertir a DTO
+        return reports.stream()
+                .map(reportMapper::toDTO)
+                .toList();
     }
 
     @Override
