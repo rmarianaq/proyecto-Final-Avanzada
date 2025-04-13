@@ -38,10 +38,10 @@ public class CategoryServiceTest {
         System.out.println("id asignado" + idCategoryCreate);
     }
 
-  /**  @Test
+    @Test
     public void testUpdateCategory() throws Exception {
-        UpdateCategoryDTO updateCategoryDTO = new UpdateCategoryDTO("Hurto actualizado","Descripcion actualizada");
+        UpdateCategoryDTO updateCategoryDTO = new UpdateCategoryDTO("33578adf445g21lkjjj2","Hurto actualizado","Descripcion actualizada");
 
         categoryService.updateCategory(updateCategoryDTO);
-    }*/
+    }
 }

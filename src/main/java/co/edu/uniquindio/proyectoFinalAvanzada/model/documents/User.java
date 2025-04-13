@@ -11,6 +11,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "users")
@@ -37,10 +38,10 @@ public class User {
     private ValidationCode validationCode;
     private LocalDateTime registerDate;
 
-    private List<ObjectId> followedReports;
+    private List<String> followedReports = new ArrayList<>();
 
     @Builder
-    public User(String id, Rol rol, UserStatus status, String name, String city, String phone, String email, String password, String address, Municipality municipality, ValidationCode validationCode, LocalDateTime registerDate, List<ObjectId> followedReports) {
+    public User(String id, Rol rol, UserStatus status, String name, String city, String phone, String email, String password, String address, Municipality municipality, ValidationCode validationCode, LocalDateTime registerDate, List<String> followedReports) {
         this.id = id;
         this.rol = rol;
         this.status = status;

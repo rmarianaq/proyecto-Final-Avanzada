@@ -45,10 +45,9 @@ public class UserServiceImpl implements UserService {
             throw new EmailNotValidException("El correo "+account.email()+" ya está en uso");
         }
 
+        userRepository.save(user);
         //Enviar un email con el codigo de activacion
         sendVerificationCode(account.email());
-
-        userRepository.save(user);
     }
     private boolean emailExist(String email) {
         return userRepository.findByEmail(email).isPresent();

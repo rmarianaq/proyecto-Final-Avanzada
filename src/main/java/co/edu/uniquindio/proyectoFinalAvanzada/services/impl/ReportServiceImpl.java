@@ -2,13 +2,16 @@ package co.edu.uniquindio.proyectoFinalAvanzada.services.impl;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.*;
 import co.edu.uniquindio.proyectoFinalAvanzada.exceptions.ReportNotFoundException;
+import co.edu.uniquindio.proyectoFinalAvanzada.exceptions.UserNotFoundException;
 import co.edu.uniquindio.proyectoFinalAvanzada.mapper.CommentMapper;
 import co.edu.uniquindio.proyectoFinalAvanzada.mapper.ReportMapper;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Comment;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Report;
+import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.User;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.CommentRepository;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.ReportRepository;
+import co.edu.uniquindio.proyectoFinalAvanzada.repositories.UserRepository;
 import co.edu.uniquindio.proyectoFinalAvanzada.services.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
@@ -31,6 +34,8 @@ public class ReportServiceImpl implements ReportService {
     private final ReportMapper reportMapper;
     private final CommentMapper commentMapper;
     private final CommentRepository commentRepository;
+    private final UserRepository userRepository;
+    private final NotificationServiceImpl notificationService;
     @Override
     public void createReport(CreateReportDTO account) {
         Report report = reportMapper.toDocument(account);
@@ -158,6 +163,17 @@ public class ReportServiceImpl implements ReportService {
         Comment comment= commentMapper.toDocument(account);
         commentRepository.save(comment);
 
+        Report report = reportRepository.findById(id).orElseThrow(() ->
+                new ReportNotFoundException("Reporte no encontrado con id: " + id));
+
+        // Crear mensaje personalizado
+        String message = "Se ha agregado un nuevo comentario al reporte: \"" + report.getTitle() + "\".";
+
+        // Notificar a los seguidores por correo
+        notificationService.notifyFollowers(report, message);
+
+
+
     }
 
     @Override
@@ -219,6 +235,9 @@ public class ReportServiceImpl implements ReportService {
         report.setStatus(newStatus);
         reportRepository.save(report);
 
+        notificationService.notifyFollowers(report, "El estado del reporte ha cambiado a: " + report.getStatus());
+
+
     }
 
     @Override
@@ -226,6 +245,48 @@ public class ReportServiceImpl implements ReportService {
         List<Report> reports = reportRepository.findByStatus(status);
 
         return reports.stream()
+                .map(reportMapper::toDTO)
+                .toList();
+    }
+
+    @Override
+    public void followReport(String id, String userId) throws Exception {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("Usuario no encontrado"));
+
+        if (!reportRepository.existsById(id)) {
+            throw new ReportNotFoundException("Reporte no encontrado");
+        }
+
+        if (!user.getFollowedReports().contains(id)) {
+            user.getFollowedReports().add(id);
+            userRepository.save(user);
+        }
+    }
+
+    @Override
+    public void unfollowReport(String id, String userId) throws Exception {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("Usuario no encontrado"));
+
+        if (!reportRepository.existsById(id)) {
+            throw new ReportNotFoundException("Reporte no encontrado");
+        }
+        if (!user.getFollowedReports().contains(id)) {
+            throw new UserNotFoundException("El reporte no esta en la lista de followers");
+        }
+        user.getFollowedReports().remove(id);
+        userRepository.save(user);
+    }
+
+    @Override
+    public List<ReportDTO> getFollowedReports(String userId) throws Exception {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("Usuario no encontrado"));
+
+        List<Report> reports = reportRepository.findAllById(user.getFollowedReports());
+        return reportRepository.findAll()
+                .stream()
                 .map(reportMapper::toDTO)
                 .toList();
     }

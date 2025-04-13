@@ -29,4 +29,10 @@ public interface ReportService {
     void changeStatus(String id, ReportStatus newStatus) throws Exception;
 
     List<ReportDTO> listAllStatus(String id,ReportStatus status);
+
+    void followReport(String id, String userId) throws Exception;
+
+    void unfollowReport(String id, String userId)throws Exception;
+
+    List<ReportDTO> getFollowedReports(String userId) throws Exception;
 }
