@@ -62,7 +62,7 @@ public class CategoryController {
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping
     public ResponseEntity<MessageDTO<List<CategoryDTO>>> listAllCategories(){
-        List<CategoryDTO>list= categoryService.listAllReports();
+        List<CategoryDTO>list= categoryService.listAllCategories();
         return ResponseEntity.ok(new MessageDTO<>(false, list));
     }
     //

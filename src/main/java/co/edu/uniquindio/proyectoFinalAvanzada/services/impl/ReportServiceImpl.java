@@ -1,14 +1,10 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.services.impl;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.*;
-import co.edu.uniquindio.proyectoFinalAvanzada.exceptions.EmailNotValidException;
 import co.edu.uniquindio.proyectoFinalAvanzada.exceptions.ReportNotFoundException;
-import co.edu.uniquindio.proyectoFinalAvanzada.exceptions.UserNotFoundException;
 import co.edu.uniquindio.proyectoFinalAvanzada.mapper.ReportMapper;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Report;
-import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.User;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
-import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.UserStatus;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.ReportRepository;
 import co.edu.uniquindio.proyectoFinalAvanzada.services.EmailService;
 import co.edu.uniquindio.proyectoFinalAvanzada.services.ReportService;

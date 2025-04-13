@@ -9,7 +9,7 @@ import java.util.List;
 public record UpdateCategoryDTO(
         @NotNull String id,
         @NotBlank @Length(max = 100) String name,
-        @NotNull List<@NotBlank String> icon
+        @NotBlank @Length(max = 700) String description
 
 ) {
 }

@@ -8,6 +8,6 @@ import java.util.List;
 
 public record CreateCategoryDTO(
         @NotBlank @Length(max = 50) String name,
-        @NotNull List<@NotBlank String> icon
+        @NotBlank @Length(max = 700) String description
 ) {
 }
