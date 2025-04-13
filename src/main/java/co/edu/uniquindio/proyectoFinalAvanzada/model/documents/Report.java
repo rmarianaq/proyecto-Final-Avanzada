@@ -11,11 +11,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Document(collection = "reports")
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
@@ -37,6 +38,23 @@ public class Report {
     private List<String> pictures;
     private User user;
     private ReportStatus status;
+    private Integer important = 0;
+    private Set<String> usersWhoMarkedImportant = new HashSet<>();//El Set evita duplicados automáticamente
 
+    @Builder
 
+    public Report(String id, String title, List<ObjectId> category, String city, String description, GeoJsonPoint location, LocalDateTime date, List<String> pictures, User user, ReportStatus status, Integer important, Set<String> usersWhoMarkedImportant) {
+        this.id = id;
+        this.title = title;
+        this.category = category;
+        this.city = city;
+        this.description = description;
+        this.location = location;
+        this.date = date;
+        this.pictures = pictures;
+        this.user = user;
+        this.status = status;
+        this.important = important;
+        this.usersWhoMarkedImportant = usersWhoMarkedImportant;
+    }
 }

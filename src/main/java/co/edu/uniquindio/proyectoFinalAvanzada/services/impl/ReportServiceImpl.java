@@ -2,10 +2,12 @@ package co.edu.uniquindio.proyectoFinalAvanzada.services.impl;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.*;
 import co.edu.uniquindio.proyectoFinalAvanzada.exceptions.ReportNotFoundException;
+import co.edu.uniquindio.proyectoFinalAvanzada.mapper.CommentMapper;
 import co.edu.uniquindio.proyectoFinalAvanzada.mapper.ReportMapper;
+import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Comment;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Report;
-import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.User;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
+import co.edu.uniquindio.proyectoFinalAvanzada.repositories.CommentRepository;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.ReportRepository;
 import co.edu.uniquindio.proyectoFinalAvanzada.services.EmailService;
 import co.edu.uniquindio.proyectoFinalAvanzada.services.ReportService;
@@ -29,6 +31,8 @@ public class ReportServiceImpl implements ReportService {
     private final EmailService emailService;
     private final ReportRepository reportRepository;
     private final ReportMapper reportMapper;
+    private final CommentMapper commentMapper;
+    private final CommentRepository commentRepository;
     @Override
     public void createReport(CreateReportDTO account) {
         Report report = reportMapper.toDocument(account);
@@ -149,32 +153,82 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public void createComment(String id, CommentDTO account) {
+    public void createComment(String id, CreateCommentDTO account) throws Exception{
+        if (!reportRepository.existsById(id)) {
+            throw new ReportNotFoundException("Reporte no encontrado con id: " + id);
+        }
+        Comment comment= commentMapper.toDocument(account);
+        commentRepository.save(comment);
 
     }
 
     @Override
-    public void deleteComment(String id) {
+    public void deleteComment(String id, String idComment) throws Exception {
+        if (!reportRepository.existsById(id)) {
+            throw new ReportNotFoundException("Reporte no encontrado con id: " + id);
+        }
+        if (!ObjectId.isValid(idComment)) {
+            throw new ReportNotFoundException("No se encontró el comentario con el id "+id);
+        }
+
+        //Buscamos el comentario que se quiere obtener
+        ObjectId objectId = new ObjectId(idComment);
+        Optional<Comment> commentOptional = commentRepository.findById(String.valueOf(objectId));
+
+        //Si no se encontró el comentario, lanzamos una excepción
+        if(commentOptional.isEmpty()){
+            throw new ReportNotFoundException("No se encontró el comentario con el id "+id);
+        }
+
+        Comment comment= commentOptional.get();
+        commentRepository.deleteById(String.valueOf(comment));
 
     }
 
     @Override
     public List<CommentDTO> listAllComments(String id) {
-        return null;
+        return commentRepository.findAll()
+                .stream()
+                .map(commentMapper::toDTO)
+                .toList();
     }
 
     @Override
-    public void markAsImportant(String id) {
+    public void markAsImportant(String id, String idUser) {
+        Report report = reportRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No existe un reporte con el id: " + id));
+
+        if (report.getUsersWhoMarkedImportant().contains(idUser)) {
+            throw new RuntimeException("El usuario ya ha marcado este reporte como importante");
+        }
+
+        report.setImportant(report.getImportant() + 1);
+        report.getUsersWhoMarkedImportant().add(idUser);
+
+        reportRepository.save(report);
 
     }
 
     @Override
-    public void changeStatus(String id, StatusDTO account) {
+    public void changeStatus(String id, ReportStatus newStatus) throws Exception {
+        Optional<Report> reportOptional = reportRepository.findById(id);
+
+        if(reportOptional.isEmpty()){
+            throw new ReportNotFoundException("El reporte no existe");
+        }
+        Report report = reportOptional.get();
+
+        report.setStatus(newStatus);
+        reportRepository.save(report);
 
     }
 
     @Override
-    public List<StatusDTO> listAllStatus(String id) {
-        return null;
+    public List<ReportDTO> listAllStatus(String id,ReportStatus status) {
+        List<Report> reports = reportRepository.findByStatus(status);
+
+        return reports.stream()
+                .map(reportMapper::toDTO)
+                .toList();
     }
 }

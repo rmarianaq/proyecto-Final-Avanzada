@@ -1,7 +1,7 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.services;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.*;
-import co.edu.uniquindio.proyectoFinalAvanzada.exceptions.ReportNotFoundException;
+import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
 
 import java.util.List;
 
@@ -18,15 +18,15 @@ public interface ReportService {
 
     List<ReportDTO> filterReportsLocation(LocationFilterDTO filter);
 
-    void createComment(String id, CommentDTO account);
+    void createComment(String id, CreateCommentDTO account)throws Exception;
 
-    void deleteComment(String id);
+    void deleteComment(String id, String idComment) throws Exception;
 
     List<CommentDTO> listAllComments(String id);
 
-    void markAsImportant(String id);
+    void markAsImportant(String id, String idUser);
 
-    void changeStatus(String id, StatusDTO account);
+    void changeStatus(String id, ReportStatus newStatus) throws Exception;
 
-    List<StatusDTO> listAllStatus(String id);
+    List<ReportDTO> listAllStatus(String id,ReportStatus status);
 }

@@ -10,6 +10,5 @@ public interface NotificationRepository extends MongoRepository<Notification, St
     // Buscar notificaciones por usuario
     List<Notification> findByIdUser(String idUser);
 
-    // Buscar notificaciones no leídas
-    List<Notification> findByIdUserAndReadFalse(String userId);
+
 }

@@ -7,7 +7,6 @@ import co.edu.uniquindio.proyectoFinalAvanzada.repositories.UserRepository;
 import co.edu.uniquindio.proyectoFinalAvanzada.segurity.JWTUtils;
 import co.edu.uniquindio.proyectoFinalAvanzada.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

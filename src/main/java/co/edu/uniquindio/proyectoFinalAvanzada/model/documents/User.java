@@ -37,10 +37,10 @@ public class User {
     private ValidationCode validationCode;
     private LocalDateTime registerDate;
 
-    private List<ObjectId> subscribeReports;
+    private List<ObjectId> followedReports;
 
     @Builder
-    public User(String id, Rol rol, UserStatus status, String name, String city, String phone, String email, String password, String address, Municipality municipality, ValidationCode validationCode, LocalDateTime registerDate, List<ObjectId> subscribeReports) {
+    public User(String id, Rol rol, UserStatus status, String name, String city, String phone, String email, String password, String address, Municipality municipality, ValidationCode validationCode, LocalDateTime registerDate, List<ObjectId> followedReports) {
         this.id = id;
         this.rol = rol;
         this.status = status;
@@ -53,6 +53,6 @@ public class User {
         this.municipality = municipality;
         this.validationCode = validationCode;
         this.registerDate = registerDate;
-        this.subscribeReports = subscribeReports;
+        this.followedReports = followedReports;
     }
 }

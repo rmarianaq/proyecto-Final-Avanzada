@@ -1,26 +1,23 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.mapper;
 
+
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.notification.NotificationDTO;
-import co.edu.uniquindio.proyectoFinalAvanzada.dto.notification.NotificationUpdateDTO;
+import co.edu.uniquindio.proyectoFinalAvanzada.dto.notification.SendNotificationDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Notification;
+import org.bson.types.ObjectId;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 public interface NotificationMapper {
 
-//    //Mapeo de Notificación -> NotificacionDTO (solo ID)
-//    @Mapping(target = "id", source = "idNotification")
-//    Notification toDocument(NotificationDTO notificationDTO);
-//
-//    NotificationDTO toDto(Notification notification);
-//
-//
-//    //Mapeo de NotificaciónDTO -> Notificacion (solo ID)
-//    @Mapping(target = "idNotification", source = "id")
-//    Notification toEntity(NotificationDTO dto);
-//
-//    void toDocument(NotificationUpdateDTO notificationUpdateDTO, @MappingTarget Notification notification);
+    Notification toDocument(SendNotificationDTO notificationDTO);
+
+
+    NotificationDTO toDTO(Notification notification);
+
+    // Metodo para mapear de ObjectId a String
+    default String map(ObjectId value) {
+        return value != null ? value.toString() : null;
+    }
 
 }

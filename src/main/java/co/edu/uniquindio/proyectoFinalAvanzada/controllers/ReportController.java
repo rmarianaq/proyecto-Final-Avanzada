@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyectoFinalAvanzada.controllers;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.*;
 import co.edu.uniquindio.proyectoFinalAvanzada.dto.reports.*;
+import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
 import co.edu.uniquindio.proyectoFinalAvanzada.services.ReportService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -74,15 +75,15 @@ public class ReportController {
 
     @Operation(summary = "user-create comment", description = "allows the user create comment")
     @PostMapping("/{id}/comment")
-    public ResponseEntity<MessageDTO<String>> createComment(@PathVariable String id, @Valid @RequestBody CommentDTO account) throws Exception{
+    public ResponseEntity<MessageDTO<String>> createComment(@PathVariable String id, @Valid @RequestBody CreateCommentDTO account) throws Exception{
         reportService.createComment(id,account);
         return ResponseEntity.ok(new MessageDTO<>(false, "Su Comentario se ha creado exitosamente"));
     }
 
     @Operation(summary = "user-delete comment", description = "allows the user delete comment")
     @DeleteMapping("/{id}/comment")
-    public ResponseEntity<MessageDTO<String>> deleteCommennt(@PathVariable String id) throws Exception{
-        reportService.deleteComment(id);
+    public ResponseEntity<MessageDTO<String>> deleteCommennt(@PathVariable String id, @Valid @RequestBody CommentDTO account) throws Exception{
+        reportService.deleteComment(id, account.id());
         return ResponseEntity.ok(new MessageDTO<>(false, "Comentario eliminado exitosamente"));
     }
 
@@ -95,22 +96,22 @@ public class ReportController {
 
     @Operation(summary = "mark as important", description = "allows marking reports as important")
     @PutMapping("/{id}/important")
-    public ResponseEntity<MessageDTO<String>> markAsImportant(@PathVariable String id) throws Exception{
-        reportService.markAsImportant(id);
+    public ResponseEntity<MessageDTO<String>> markAsImportant(@PathVariable String id, @RequestParam String idUser) throws Exception{
+        reportService.markAsImportant(id, idUser);
         return ResponseEntity.ok(new MessageDTO<>(false, "Reporte marcado como importante exitosamente"));
     }
 
     @Operation(summary = "change status", description = "Allows change the status of the report")
     @PostMapping("/{id}/status")
-    public ResponseEntity<MessageDTO<String>> changeStatus(@PathVariable String id, @Valid @RequestBody StatusDTO account) throws Exception{
-        reportService.changeStatus(id,account);
+    public ResponseEntity<MessageDTO<String>> changeStatus(@PathVariable String id, @RequestParam ReportStatus newStatus) throws Exception{
+        reportService.changeStatus(id, newStatus);
         return ResponseEntity.ok(new MessageDTO<>(false, "El estado ha cambiado con exito"));
     }
 
     @Operation(summary = "list all status", description = "lists the statuses of the reports")
     @GetMapping("/{id}/status")
-    public ResponseEntity<MessageDTO<List<StatusDTO>>> listAllStatus(@PathVariable String id){
-        List<StatusDTO>list= reportService.listAllStatus(id);
+    public ResponseEntity<MessageDTO<List<ReportDTO>>> listAllStatus(@PathVariable String id, @RequestParam ReportStatus status){
+        List<ReportDTO>list= reportService.listAllStatus(id,status);
         return ResponseEntity.ok(new MessageDTO<>(false, list));
     }
 }

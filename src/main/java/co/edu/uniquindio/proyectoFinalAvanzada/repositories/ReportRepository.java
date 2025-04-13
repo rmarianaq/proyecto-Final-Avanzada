@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.repositories;
 
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Report;
+import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -27,5 +28,5 @@ public interface ReportRepository extends MongoRepository<Report, String> {
     @Query("{ 'location': { $near: { $geometry: { type: 'Point', coordinates: [?0, ?1] }, $maxDistance: ?2 } } }")
     List<Report> findReportsNear(double lng, double lat, double maxDistanceMeters);
 
-    List<Report> findByStatus(String status);
+    List<Report> findByStatus(ReportStatus status);
 }

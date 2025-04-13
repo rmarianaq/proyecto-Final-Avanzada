@@ -19,10 +19,10 @@ public class Comment {
 
     @Id
     @EqualsAndHashCode.Include
-    private String idComment;
+    private String id;
 
     private ObjectId idUser;
-    private ObjectId idReports;
+    private ObjectId idReport;
     private String textComment;
     private Date dateComment;
 
