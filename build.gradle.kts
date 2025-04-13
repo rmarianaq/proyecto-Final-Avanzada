@@ -49,6 +49,12 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // Mockito y soporte para JUnit 5
+    testImplementation("org.mockito:mockito-core:5.11.0")
+    testImplementation("org.mockito:mockito-junit-jupiter:5.11.0")
+
+// AssertJ para aserciones más expresivas (opcional pero recomendado)
+    testImplementation("org.assertj:assertj-core:3.25.3")
 }
 
 
