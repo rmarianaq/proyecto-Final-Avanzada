@@ -30,7 +30,7 @@ public class EmailServiceTest {
                 "Welcome to the SHIELD UQ team!\n" +
                         "This is where you'll stay informed about your surroundings and work toward our shared mission.\n" +
                         "Together, we'll build a better community for all.",
-                "josephstoff2@gmail.com"
+                "marianaxzy.115@gmail.com"
         );
         assertDoesNotThrow(() -> emailService.sendEmail(emailDTO));
     }
