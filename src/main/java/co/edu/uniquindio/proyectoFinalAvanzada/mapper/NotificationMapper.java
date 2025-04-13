@@ -19,5 +19,9 @@ public interface NotificationMapper {
     default String map(ObjectId value) {
         return value != null ? value.toString() : null;
     }
+    // De String a ObjectId
+    default ObjectId map(String value) {
+        return value != null ? new ObjectId(value) : null;
+    }
 
 }

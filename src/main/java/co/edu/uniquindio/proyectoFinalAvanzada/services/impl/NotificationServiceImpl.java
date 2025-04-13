@@ -10,6 +10,7 @@ import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Report;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.User;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.NotificationRepository;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.UserRepository;
+import co.edu.uniquindio.proyectoFinalAvanzada.services.EmailService;
 import co.edu.uniquindio.proyectoFinalAvanzada.services.NotificationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class NotificationServiceImpl implements NotificationService {
     private final NotificationMapper notificationMapper;
     private final NotificationRepository notificationRepository;
     private final UserRepository userRepository;
-    private final EmailServiceImpl emailService;
+    private final EmailService emailService;
     @Override
     public List<NotificationDTO> listAllNotifications() {
         return notificationRepository.findAll()

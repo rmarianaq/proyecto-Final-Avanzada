@@ -12,6 +12,7 @@ import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.CommentRepository;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.ReportRepository;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.UserRepository;
+import co.edu.uniquindio.proyectoFinalAvanzada.services.NotificationService;
 import co.edu.uniquindio.proyectoFinalAvanzada.services.ReportService;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
@@ -35,7 +36,7 @@ public class ReportServiceImpl implements ReportService {
     private final CommentMapper commentMapper;
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
-    private final NotificationServiceImpl notificationService;
+    private final NotificationService notificationService;
     @Override
     public void createReport(CreateReportDTO account) {
         Report report = reportMapper.toDocument(account);
