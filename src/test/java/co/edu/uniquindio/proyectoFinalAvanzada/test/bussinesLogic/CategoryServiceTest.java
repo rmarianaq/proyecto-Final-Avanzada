@@ -45,11 +45,7 @@ public class CategoryServiceTest {
 
     @Test
     public void testUpdateCategory() throws Exception {
-<<<<<<< HEAD
-        UpdateCategoryDTO updateCategoryDTO = new UpdateCategoryDTO("67fc6045c6791d77356a6cb5","Hurto actualizado","Descripcion actualizada");
-=======
         UpdateCategoryDTO updateCategoryDTO = new UpdateCategoryDTO("67fc6045c6791d77356a6cb5", "Hurto actualizado", "Descripcion actualizada");
->>>>>>> 7fee0eb485dccfb4e14f96f7fb5087b5392d9960
 
         categoryService.updateCategory(updateCategoryDTO);
     }
