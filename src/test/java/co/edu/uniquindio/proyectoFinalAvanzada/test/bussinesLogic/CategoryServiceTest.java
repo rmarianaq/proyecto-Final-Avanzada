@@ -23,7 +23,7 @@ public class CategoryServiceTest {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    private static String idCategoryCreate = "33578adf445g21lkjjj2";
+    private static String idCategoryCreate = "67fc6045c6791d77356a6cb5";
 
     @Test
     public void testCreateCategory() throws Exception {
@@ -40,7 +40,7 @@ public class CategoryServiceTest {
 
     @Test
     public void testUpdateCategory() throws Exception {
-        UpdateCategoryDTO updateCategoryDTO = new UpdateCategoryDTO("33578adf445g21lkjjj2","Hurto actualizado","Descripcion actualizada");
+        UpdateCategoryDTO updateCategoryDTO = new UpdateCategoryDTO("67fc6045c6791d77356a6cb5","Hurto actualizado","Descripcion actualizada");
 
         categoryService.updateCategory(updateCategoryDTO);
     }

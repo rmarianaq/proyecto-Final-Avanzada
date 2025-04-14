@@ -12,7 +12,6 @@ public record SendNotificationDTO (
         Report report,
         @NotBlank String idUser,
         @Min(1) Double radiusKm
-
 ){
 
 }

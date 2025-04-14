@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUser(String id) throws Exception {
         //Validamos el id
         if (!ObjectId.isValid(id)) {
-            throw new UserNotFoundException("No se encontró el usuario con el id "+id);
+            throw new UserNotFoundException("No se encontró el usuario con el id 1"+id);
         }
 
         //Buscamos el usuario que se quiere obtener
@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
 
         //Si no se encontró el usuario, lanzamos una excepción
         if(userOptional.isEmpty()){
-            throw new UserNotFoundException("No se encontró el usuario con el id "+id);
+            throw new UserNotFoundException("No se encontró el usuario con el id 2"+id);
         }
 
         //Retornamos el usuario encontrado convertido a DTO
