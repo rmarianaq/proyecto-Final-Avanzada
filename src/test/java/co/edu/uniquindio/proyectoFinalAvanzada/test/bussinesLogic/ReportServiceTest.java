@@ -105,7 +105,7 @@ public class ReportServiceTest {
 
     @Test
     void testDeleteReport() throws Exception {
-        String reportId = "507f1f77bcf86cd799439011";
+        String reportId = "67f73fd5f8dcee3803870a2a";
         Report report = new Report();
         report.setId(reportId);
 
