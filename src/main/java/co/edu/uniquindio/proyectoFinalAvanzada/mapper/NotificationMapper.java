@@ -6,13 +6,24 @@ import co.edu.uniquindio.proyectoFinalAvanzada.dto.notification.SendNotification
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Notification;
 import org.bson.types.ObjectId;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
 public interface NotificationMapper {
 
+    @Mapping(target = "idNotification", ignore = true)
+    @Mapping(target = "idUser", source = "idUser", qualifiedByName = "mapStringToObjectId")
+    @Mapping(target = "idReport", source = "report.id", qualifiedByName = "mapStringToObjectId")
+    @Mapping(target = "notificationTitle", source = "report.title")
+    @Mapping(target = "textComment", source = "message")
+    @Mapping(target = "read", constant = "false")
     Notification toDocument(SendNotificationDTO notificationDTO);
 
 
+    @Mapping(source = "idNotification", target = "id")
+    @Mapping(source = "notificationTitle", target = "title")
+    @Mapping(source = "textComment", target = "message")
     NotificationDTO toDTO(Notification notification);
 
     // Metodo para mapear de ObjectId a String
@@ -20,8 +31,9 @@ public interface NotificationMapper {
         return value != null ? value.toString() : null;
     }
     // De String a ObjectId
-    default ObjectId map(String value) {
+// Metodo para mapear de String a ObjectId
+    @Named("mapStringToObjectId")
+    default ObjectId mapStringToObjectId(String value) {
         return value != null ? new ObjectId(value) : null;
     }
-
 }
