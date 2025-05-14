@@ -6,7 +6,6 @@ import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.Rol;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.UserStatus;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.vo.ValidationCode;
 import lombok.*;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
