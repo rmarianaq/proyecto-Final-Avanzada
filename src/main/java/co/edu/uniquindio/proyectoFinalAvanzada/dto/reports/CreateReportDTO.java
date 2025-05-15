@@ -15,7 +15,7 @@ public record CreateReportDTO(
         @NotBlank @Length(max = 1000) String description,
         @Min(-90) @Max(90) Double latitude,
         @Min(-180) @Max(180) Double longitude,
-        @NotNull List<@NotBlank String> image,
+        @NotNull List<@NotBlank String> pictures,
         @NotBlank String idCategory,
         ReportStatus status
 ) {

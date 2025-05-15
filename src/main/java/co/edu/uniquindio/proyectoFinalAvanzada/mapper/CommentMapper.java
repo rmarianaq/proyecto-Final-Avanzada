@@ -14,6 +14,7 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
 
+
     Comment toDocument(CreateCommentDTO createCommentDTO);
 
 

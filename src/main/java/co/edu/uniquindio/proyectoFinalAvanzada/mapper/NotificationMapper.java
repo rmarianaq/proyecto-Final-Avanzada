@@ -13,13 +13,11 @@ import org.mapstruct.Named;
 public interface NotificationMapper {
 
     @Mapping(target = "idNotification", ignore = true)
+    @Mapping(target = "read", expression = "java(false)")
+    @Mapping(target = "date", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "idUser", source = "idUser", qualifiedByName = "mapStringToObjectId")
-    @Mapping(target = "idReport", source = "report.id", qualifiedByName = "mapStringToObjectId")
-    @Mapping(target = "notificationTitle", source = "report.title")
-    @Mapping(target = "textComment", source = "message")
-    @Mapping(target = "read", constant = "false")
+    @Mapping(target = "idReport", source = "idReport", qualifiedByName = "mapStringToObjectId")
     Notification toDocument(SendNotificationDTO notificationDTO);
-
 
     @Mapping(source = "idNotification", target = "id")
     @Mapping(source = "notificationTitle", target = "title")

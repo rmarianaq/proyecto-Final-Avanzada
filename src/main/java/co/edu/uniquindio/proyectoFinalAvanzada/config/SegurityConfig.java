@@ -5,6 +5,7 @@ import co.edu.uniquindio.proyectoFinalAvanzada.segurity.JWTFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -46,10 +47,9 @@ public class SegurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**"
                                 ).permitAll()
-                        .requestMatchers("/api/users/**").authenticated()
-                        .requestMatchers("/api/reports/**").authenticated()
-                        .requestMatchers("/api/categories/**").hasRole("ADMIN")
-                        .requestMatchers("/api/notifications/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/categories/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/categories/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/categories/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex.authenticationEntryPoint( new AutenticacionEntryPoint() ))

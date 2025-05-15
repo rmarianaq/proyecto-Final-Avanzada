@@ -8,8 +8,9 @@ import org.hibernate.validator.constraints.Length;
 import java.util.List;
 
 public record SendNotificationDTO (
-        @NotBlank @Length(max = 600)String message,
-        Report report,
+        @NotBlank @Length(max = 600)String textComment,
+        @NotBlank String idReport,
+        @NotBlank String notificationTitle,
         @NotBlank String idUser,
         @Min(1) Double radiusKm
 ){

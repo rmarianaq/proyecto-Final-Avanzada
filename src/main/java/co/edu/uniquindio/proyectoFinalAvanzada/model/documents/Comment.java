@@ -10,11 +10,6 @@ import java.util.Date;
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@Builder
-
 public class Comment {
 
     @Id
@@ -26,4 +21,52 @@ public class Comment {
     private String textComment;
     private Date dateComment;
 
+    @Builder
+    public Comment(String id, ObjectId idUser, ObjectId idReport, String textComment, Date dateComment) {
+        this.id = id;
+        this.idUser = idUser;
+        this.idReport = idReport;
+        this.textComment = textComment;
+        this.dateComment = dateComment;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public ObjectId getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(ObjectId idUser) {
+        this.idUser = idUser;
+    }
+
+    public ObjectId getIdReport() {
+        return idReport;
+    }
+
+    public void setIdReport(ObjectId idReport) {
+        this.idReport = idReport;
+    }
+
+    public String getTextComment() {
+        return textComment;
+    }
+
+    public void setTextComment(String textComment) {
+        this.textComment = textComment;
+    }
+
+    public Date getDateComment() {
+        return dateComment;
+    }
+
+    public void setDateComment(Date dateComment) {
+        this.dateComment = dateComment;
+    }
 }
