@@ -8,7 +8,7 @@ import org.hibernate.validator.constraints.Length;
 import java.util.List;
 
 public record SendNotificationDTO (
-        @NotBlank @Length(max = 600)String textComment,
+        @NotBlank @Length(max = 600)String text,
         @NotBlank String idReport,
         @NotBlank String notificationTitle,
         @NotBlank String idUser,

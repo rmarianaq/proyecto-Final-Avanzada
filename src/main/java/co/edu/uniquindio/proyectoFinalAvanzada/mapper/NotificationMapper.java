@@ -19,9 +19,9 @@ public interface NotificationMapper {
     @Mapping(target = "idReport", source = "idReport", qualifiedByName = "mapStringToObjectId")
     Notification toDocument(SendNotificationDTO notificationDTO);
 
-    @Mapping(source = "idNotification", target = "id")
-    @Mapping(source = "notificationTitle", target = "title")
-    @Mapping(source = "textComment", target = "message")
+    @Mapping(source = "idNotification", target = "idNotification")
+    @Mapping(source = "notificationTitle", target = "notificationTitle")
+    @Mapping(source = "text", target = "text")
     NotificationDTO toDTO(Notification notification);
 
     // Metodo para mapear de ObjectId a String

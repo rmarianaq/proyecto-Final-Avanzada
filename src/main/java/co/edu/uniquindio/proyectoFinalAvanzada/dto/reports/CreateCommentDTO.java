@@ -6,6 +6,6 @@ import org.hibernate.validator.constraints.Length;
 public record CreateCommentDTO(
         @NotBlank String idReport,
         @NotBlank String idUser,
-        @NotBlank @Length(max = 1000) String message
+        @NotBlank @Length(max = 1000) String textComment
 ) {
 }

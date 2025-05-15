@@ -19,19 +19,19 @@ public class Notification {
     private ObjectId idUser;
     private ObjectId idReport;
     private String notificationTitle;
-    private String textComment;
+    private String text;
     private boolean read;
     private LocalDateTime date;
 
     public  Notification(){}
 
     @Builder
-    public Notification(String idNotification, ObjectId idUser, ObjectId idReport, String notificationTitle, String textComment, boolean read, LocalDateTime date) {
+    public Notification(String idNotification, ObjectId idUser, ObjectId idReport, String notificationTitle, String text, boolean read, LocalDateTime date) {
         this.idNotification = idNotification;
         this.idUser = idUser;
         this.idReport = idReport;
         this.notificationTitle = notificationTitle;
-        this.textComment = textComment;
+        this.text = text;
         this.read = read;
         this.date = date;
     }
@@ -77,12 +77,12 @@ public class Notification {
         this.notificationTitle = notificationTitle;
     }
 
-    public String getTextComment() {
-        return textComment;
+    public String getText() {
+        return text;
     }
 
-    public void setTextComment(String textComment) {
-        this.textComment = textComment;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public boolean isRead() {

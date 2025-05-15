@@ -2,6 +2,7 @@ package co.edu.uniquindio.proyectoFinalAvanzada.dto.reports;
 
 
 import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
+import co.edu.uniquindio.proyectoFinalAvanzada.model.vo.Location;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -13,10 +14,9 @@ import java.util.List;
 public record CreateReportDTO(
         @NotBlank @Length(max = 300) String title,
         @NotBlank @Length(max = 1000) String description,
-        @Min(-90) @Max(90) Double latitude,
-        @Min(-180) @Max(180) Double longitude,
+        Location location,
         @NotNull List<@NotBlank String> pictures,
-        @NotBlank String idCategory,
+        @NotNull List<@NotBlank String> idCategory,
         ReportStatus status
 ) {
 }

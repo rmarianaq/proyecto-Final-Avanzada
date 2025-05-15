@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.model.documents;
 
+import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.Municipality;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
 import lombok.*;
 import org.bson.types.ObjectId;
@@ -27,7 +28,7 @@ public class Report {
 
     private String title;
     private List<ObjectId> category;
-    private String city;
+    private Municipality municipality;
     private String description;
     @GeoSpatialIndexed(type = GeoSpatialIndexType.GEO_2DSPHERE)//permite que Mongo cree un índice especial que entiende latitud/longitud, necesario para consultas $near.
     private GeoJsonPoint location;
@@ -38,12 +39,13 @@ public class Report {
     private Integer important = 0;
     private Set<String> usersWhoMarkedImportant = new HashSet<>();//El Set evita duplicados automáticamente
 
+
     @Builder
-    public Report(String id, String title, List<ObjectId> category, String city, String description, GeoJsonPoint location, LocalDateTime date, List<String> pictures, User user, ReportStatus status, Integer important, Set<String> usersWhoMarkedImportant) {
+    public Report(String id, String title, List<ObjectId> category, Municipality municipality, String description, GeoJsonPoint location, LocalDateTime date, List<String> pictures, User user, ReportStatus status, Integer important, Set<String> usersWhoMarkedImportant) {
         this.id = id;
         this.title = title;
         this.category = category;
-        this.city = city;
+        this.municipality = municipality;
         this.description = description;
         this.location = location;
         this.date = date;
@@ -78,12 +80,12 @@ public class Report {
         this.category = category;
     }
 
-    public String getCity() {
-        return city;
+    public Municipality getMunicipality() {
+        return municipality;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setMunicipality(Municipality municipality) {
+        this.municipality = municipality;
     }
 
     public String getDescription() {

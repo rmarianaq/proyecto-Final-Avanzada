@@ -132,7 +132,7 @@ public class ReportServiceImpl implements ReportService {
         }
 
         // Validar que latitud, longitud y radio no sean nulos
-        if (filter.latitude() == null || filter.longitude() == null || filter.radiusKm() == null) {
+        if (filter.location() == null || filter.radiusKm() == null) {
             throw new RuntimeException("Debes proporcionar latitud, longitud y radio");
         }
 
@@ -141,7 +141,7 @@ public class ReportServiceImpl implements ReportService {
 
         // Construir el criterio geoespacial
         Criteria criteria = Criteria.where("location").withinSphere(
-                new Circle(filter.longitude(), filter.latitude(), radiusInRadians)
+                new Circle(filter.location(), radiusInRadians)
         );
 
         // Crear la consulta con paginación de 5 elementos por página

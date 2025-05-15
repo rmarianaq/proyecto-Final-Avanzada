@@ -4,6 +4,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Document(collection = "comments")
@@ -19,10 +21,10 @@ public class Comment {
     private ObjectId idUser;
     private ObjectId idReport;
     private String textComment;
-    private Date dateComment;
+    private LocalDateTime dateComment;
 
     @Builder
-    public Comment(String id, ObjectId idUser, ObjectId idReport, String textComment, Date dateComment) {
+    public Comment(String id, ObjectId idUser, ObjectId idReport, String textComment, LocalDateTime dateComment) {
         this.id = id;
         this.idUser = idUser;
         this.idReport = idReport;
@@ -62,11 +64,11 @@ public class Comment {
         this.textComment = textComment;
     }
 
-    public Date getDateComment() {
+    public LocalDateTime getDateComment() {
         return dateComment;
     }
 
-    public void setDateComment(Date dateComment) {
+    public void setDateComment(LocalDateTime dateComment) {
         this.dateComment = dateComment;
     }
 }
