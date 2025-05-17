@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
         // Mapear los datos actualizados al usuario existente
         User user = userOptional.get();
-        userMapper.toDocument(account, user);
+        userMapper.updateUserFromDTO(account, user);
 
 
         //Como el objeto usuario ya tiene un id, el save() no crea un nuevo registro sino que actualiza el que ya existe

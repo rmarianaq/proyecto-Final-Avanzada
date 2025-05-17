@@ -10,6 +10,5 @@ public record UpdateUserDTO(
         @NotBlank @Length(max = 100) String name,
         @Length(max = 10) String phone,
         Municipality municipality,
-        @NotBlank @Length(max = 100) String address,
-        String number) {
+        @NotBlank @Length(max = 100) String address) {
 }

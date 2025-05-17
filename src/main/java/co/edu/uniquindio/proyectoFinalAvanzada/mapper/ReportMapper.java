@@ -39,7 +39,7 @@ public interface ReportMapper {
     }
 
   @Named("geoJsonPointToLocation")
-  default GeoJsonPoint geoJsonPointToLocation(GeoJsonPoint location){
+  default Location geoJsonPointToLocation(GeoJsonPoint location){
     if (location == null){
       return null;
     }

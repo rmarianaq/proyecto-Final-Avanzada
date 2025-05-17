@@ -20,6 +20,13 @@ public interface UserMapper {
     User toDocument(CreateUserDTO createUserDTO);
 
 
+    @Mapping(target = "id", ignore = true) // si no quieres sobreescribir el id
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "phone", source = "phone")
+    @Mapping(target = "municipality", source = "municipality")
+    @Mapping(target = "address", source = "address")
+    void updateUserFromDTO(UpdateUserDTO dto, @MappingTarget User user);
+
     UserDTO toDTO(User user);
 
     // Metodo para mapear de ObjectId a String

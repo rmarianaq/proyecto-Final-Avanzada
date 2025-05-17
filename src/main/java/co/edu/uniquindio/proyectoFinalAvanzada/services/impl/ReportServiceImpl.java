@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.geo.Circle;
+import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -131,17 +132,18 @@ public class ReportServiceImpl implements ReportService {
             throw new RuntimeException("La página no puede ser menor a 0");
         }
 
-        // Validar que latitud, longitud y radio no sean nulos
-        if (filter.location() == null || filter.radiusKm() == null) {
-            throw new RuntimeException("Debes proporcionar latitud, longitud y radio");
-        }
+        // Convertir Location a Point
+        Point locationPoint = new Point(
+                filter.location().getLongitude(), // X → longitud
+                filter.location().getLatitude()   // Y → latitud
+        );
 
-        // Convertir el radio de kilómetros a radianes (Mongo usa radianes en $centerSphere)
-        double radiusInRadians = filter.radiusKm() / 6378.1; // Radio aproximado de la Tierra en km
+// Convertir el radio a radianes
+        double radiusInRadians = filter.radiusKm() / 6378.1;
 
-        // Construir el criterio geoespacial
+// Construir criterio
         Criteria criteria = Criteria.where("location").withinSphere(
-                new Circle(filter.location(), radiusInRadians)
+                new Circle(locationPoint, radiusInRadians)
         );
 
         // Crear la consulta con paginación de 5 elementos por página
