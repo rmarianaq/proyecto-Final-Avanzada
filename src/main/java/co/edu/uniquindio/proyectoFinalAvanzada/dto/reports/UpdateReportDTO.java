@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.dto.reports;
 
+import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.Municipality;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.vo.Location;
 import jakarta.validation.constraints.Max;
@@ -11,12 +12,14 @@ import org.hibernate.validator.constraints.Length;
 import java.util.List;
 
 public record UpdateReportDTO(
-        @NotNull String idReport,
+        @NotNull String id,
         @NotBlank @Length(max = 300) String title,
         @NotBlank @Length(max = 1000) String description,
         Location location,
         @NotNull List<@NotBlank String> image,
-        @NotBlank String idCategory,
-        ReportStatus status
+        @NotNull List<@NotBlank String> category,
+        @NotNull List<@NotBlank String> pictures,
+        ReportStatus status,
+        Municipality municipality
 ) {
 }

@@ -30,9 +30,9 @@ public interface ReportService {
 
     List<ReportDTO> listAllStatus(String id,ReportStatus status);
 
-    void followReport(String id, String userId) throws Exception;
+    void followReport(String id, String idUser) throws Exception;
 
-    void unfollowReport(String id, String userId)throws Exception;
+    void unfollowReport(String id, String idUser)throws Exception;
 
-    List<ReportDTO> getFollowedReports(String userId) throws Exception;
+    List<ReportDTO> getFollowedReports(String idUser) throws Exception;
 }

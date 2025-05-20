@@ -6,11 +6,16 @@ import co.edu.uniquindio.proyectoFinalAvanzada.dto.categories.UpdateCategoryDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Category;
 import org.bson.types.ObjectId;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring")
 
 public interface CategoryMapper {
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "name", source = "name")
+    @Mapping(target = "description", source = "description")
     Category toDocument(CreateCategoryDTO createCategoryDTO);
 
 

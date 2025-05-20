@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 public record UpdateUserDTO(
-        @NotNull String idUser,
+        @NotNull String id,
         @NotBlank @Length(max = 100) String name,
         @Length(max = 10) String phone,
         Municipality municipality,

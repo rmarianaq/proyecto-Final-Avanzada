@@ -116,20 +116,20 @@ public class ReportController {
     }
     @Operation(summary = "Follow a report", description = "Allow the user to follow a report to receive updates")
     @PostMapping("/{id}/follow")
-    public ResponseEntity<MessageDTO<String>> followReport(@PathVariable String id, @RequestParam String userId) throws Exception {
-        reportService.followReport(id, userId);
+    public ResponseEntity<MessageDTO<String>> followReport(@PathVariable String id, @RequestParam String idUser) throws Exception {
+        reportService.followReport(id, idUser);
         return ResponseEntity.ok(new MessageDTO<>(false, "Has comenzado a seguir este reporte"));
     }
     @Operation(summary = "Unfollow a report", description = "Allow the user to stop following a report")
     @DeleteMapping("/{id}/follow")
-    public ResponseEntity<MessageDTO<String>> unfollowReport(@PathVariable String id, @RequestParam String userId) throws Exception {
-        reportService.unfollowReport(id, userId);
+    public ResponseEntity<MessageDTO<String>> unfollowReport(@PathVariable String id, @RequestParam String idUser) throws Exception {
+        reportService.unfollowReport(id, idUser);
         return ResponseEntity.ok(new MessageDTO<>(false, "Has dejado de seguir este reporte"));
     }
     @Operation(summary = "Get followed reports", description = "Return all reports that a user is following")
     @GetMapping("/followed")
-    public ResponseEntity<MessageDTO<List<ReportDTO>>> getFollowedReports(@RequestParam String userId) throws Exception {
-        List<ReportDTO> followedReports = reportService.getFollowedReports(userId);
+    public ResponseEntity<MessageDTO<List<ReportDTO>>> getFollowedReports(@RequestParam String idUser) throws Exception {
+        List<ReportDTO> followedReports = reportService.getFollowedReports(idUser);
         return ResponseEntity.ok(new MessageDTO<>(false, followedReports));
     }
 }

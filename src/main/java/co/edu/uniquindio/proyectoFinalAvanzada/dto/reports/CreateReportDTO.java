@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyectoFinalAvanzada.dto.reports;
 
 
+import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.Municipality;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.enums.ReportStatus;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.vo.Location;
 import jakarta.validation.constraints.Max;
@@ -16,7 +17,9 @@ public record CreateReportDTO(
         @NotBlank @Length(max = 1000) String description,
         Location location,
         @NotNull List<@NotBlank String> pictures,
-        @NotNull List<@NotBlank String> idCategory,
-        ReportStatus status
+        @NotNull List<@NotBlank String> category,
+        ReportStatus status,
+        @NotBlank String idUser,
+        Municipality municipality
 ) {
 }

@@ -48,18 +48,18 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public void updateReport(UpdateReportDTO account) throws Exception {
         //Validamos el id
-        if (!ObjectId.isValid(account.idReport())) {
-            throw new ReportNotFoundException("No se encontró el reporte con el id "+account.idReport());
+        if (!ObjectId.isValid(account.id())) {
+            throw new ReportNotFoundException("No se encontró el reporte con el id "+account.id());
         }
 
         //Buscamos el reporte que se quiere actualizar
-        ObjectId objectId = new ObjectId(account.idReport());
+        ObjectId objectId = new ObjectId(account.id());
         Optional<Report> reportOptional = reportRepository.findById(String.valueOf(objectId));
 
 
         //Si no se encontró el reporte, lanzamos una excepción
         if(reportOptional.isEmpty()){
-            throw new ReportNotFoundException("No se encontró el reporte con el id "+account.idReport());
+            throw new ReportNotFoundException("No se encontró el reporte con el id "+account.id());
         }
 
         // Mapear los datos actualizados al reporte existente
@@ -253,8 +253,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public void followReport(String id, String userId) throws Exception {
-        User user = userRepository.findById(userId)
+    public void followReport(String id, String idUser) throws Exception {
+        User user = userRepository.findById(idUser)
                 .orElseThrow(() -> new UserNotFoundException("Usuario no encontrado"));
 
         if (!reportRepository.existsById(id)) {
@@ -268,8 +268,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public void unfollowReport(String id, String userId) throws Exception {
-        User user = userRepository.findById(userId)
+    public void unfollowReport(String id, String idUser) throws Exception {
+        User user = userRepository.findById(idUser)
                 .orElseThrow(() -> new UserNotFoundException("Usuario no encontrado"));
 
         if (!reportRepository.existsById(id)) {
@@ -283,8 +283,8 @@ public class ReportServiceImpl implements ReportService {
     }
 
     @Override
-    public List<ReportDTO> getFollowedReports(String userId) throws Exception {
-        User user = userRepository.findById(userId)
+    public List<ReportDTO> getFollowedReports(String idUser) throws Exception {
+        User user = userRepository.findById(idUser)
                 .orElseThrow(() -> new UserNotFoundException("Usuario no encontrado"));
 
         List<Report> reports = reportRepository.findAllById(user.getFollowedReports());

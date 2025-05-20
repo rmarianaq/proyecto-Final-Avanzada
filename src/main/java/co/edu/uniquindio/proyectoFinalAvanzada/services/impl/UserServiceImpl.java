@@ -55,18 +55,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(UpdateUserDTO account) throws Exception {
         //Validamos el id
-        if (!ObjectId.isValid(account.idUser())) {
-            throw new UserNotFoundException("No se encontró el usuario con el id "+account.idUser());
+        if (!ObjectId.isValid(account.id())) {
+            throw new UserNotFoundException("No se encontró el usuario con el id "+account.id());
         }
 
         //Buscamos el usuario que se quiere actualizar
-        ObjectId objectId = new ObjectId(account.idUser());
+        ObjectId objectId = new ObjectId(account.id());
         Optional<User> userOptional = userRepository.findById(String.valueOf(objectId));
 
 
         //Si no se encontró el usuario, lanzamos una excepción
         if(userOptional.isEmpty()){
-            throw new UserNotFoundException("No se encontró el usuario con el id "+account.idUser());
+            throw new UserNotFoundException("No se encontró el usuario con el id "+account.id());
         }
 
 

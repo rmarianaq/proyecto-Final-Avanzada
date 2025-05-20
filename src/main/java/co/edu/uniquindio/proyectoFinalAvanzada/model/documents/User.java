@@ -26,7 +26,6 @@ public class User {
     private Rol rol;
     private UserStatus status;
     private String name;
-    private String city;
     private String phone;
     private String email;
     private String password;
@@ -38,12 +37,11 @@ public class User {
     private List<String> followedReports = new ArrayList<>();
 
     @Builder
-    public User(String id, Rol rol, UserStatus status, String name, String city, String phone, String email, String password, String address, Municipality municipality, ValidationCode validationCode, LocalDateTime registerDate, List<String> followedReports) {
+    public User(String id, Rol rol, UserStatus status, String name, String phone, String email, String password, String address, Municipality municipality, ValidationCode validationCode, LocalDateTime registerDate, List<String> followedReports) {
         this.id = id;
         this.rol = rol;
         this.status = status;
         this.name = name;
-        this.city = city;
         this.phone = phone;
         this.email = email;
         this.password = password;
@@ -86,13 +84,6 @@ public class User {
         this.name = name;
     }
 
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
 
     public String getPhone() {
         return phone;

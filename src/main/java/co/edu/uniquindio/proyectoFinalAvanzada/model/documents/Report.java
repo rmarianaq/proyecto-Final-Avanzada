@@ -34,14 +34,14 @@ public class Report {
     private GeoJsonPoint location;
     private LocalDateTime date;
     private List<String> pictures;
-    private User user;
+    private ObjectId idUser;
     private ReportStatus status;
     private Integer important = 0;
     private Set<String> usersWhoMarkedImportant = new HashSet<>();//El Set evita duplicados automáticamente
 
 
     @Builder
-    public Report(String id, String title, List<ObjectId> category, Municipality municipality, String description, GeoJsonPoint location, LocalDateTime date, List<String> pictures, User user, ReportStatus status, Integer important, Set<String> usersWhoMarkedImportant) {
+    public Report(String id, String title, List<ObjectId> category, Municipality municipality, String description, GeoJsonPoint location, LocalDateTime date, List<String> pictures, ObjectId idUser, ReportStatus status, Integer important, Set<String> usersWhoMarkedImportant) {
         this.id = id;
         this.title = title;
         this.category = category;
@@ -50,7 +50,7 @@ public class Report {
         this.location = location;
         this.date = date;
         this.pictures = pictures;
-        this.user = user;
+        this.idUser = idUser;
         this.status = status;
         this.important = important;
         this.usersWhoMarkedImportant = usersWhoMarkedImportant;
@@ -120,12 +120,12 @@ public class Report {
         this.pictures = pictures;
     }
 
-    public User getUser() {
-        return user;
+    public ObjectId getIdUser() {
+        return idUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setIdUser(ObjectId idUser) {
+        this.idUser = idUser;
     }
 
     public ReportStatus getStatus() {

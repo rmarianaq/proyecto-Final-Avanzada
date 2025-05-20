@@ -17,9 +17,9 @@ public interface ReportRepository extends MongoRepository<Report, String> {
     //Busca un reporte por su categoria
     Page<Report> findByCategoryContaining(ObjectId categoryId, Pageable pageable);
 
-    List<Report> findByUserIdOrderByDateAsc(String user);
+    List<Report> findByIdUserOrderByDateAsc(String idUser);
 
-    List<Report> findByUserIdOrderByDateDesc(String user);
+    List<Report> findByIdUserOrderByDateDesc(String idUser);
 
     // Consulta ignorando mayúsculas/minúsculas
     Page<Report> findByTitleContainingIgnoreCase(String text, Pageable pageable);
