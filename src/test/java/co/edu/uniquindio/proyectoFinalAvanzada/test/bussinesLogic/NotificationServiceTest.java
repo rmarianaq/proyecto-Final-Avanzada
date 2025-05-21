@@ -47,10 +47,9 @@ public class NotificationServiceTest {
                 .name("Prueba Notificaciones")
                 .email("teo154@outlook.com")
                 .password("password123")
-                .city("Ciudad")
+                .municipality(Municipality.ARMENIA)
                 .phone("123456")
                 .address("Calle Falsa 123")
-                .municipality(Municipality.ARMENIA)
                 .registerDate(LocalDateTime.now())
                 .build();
         userRepository.save(user);
@@ -62,8 +61,10 @@ public class NotificationServiceTest {
         SendNotificationDTO dto = new SendNotificationDTO(
                 "Mensaje de prueba",
                 null,
+                "titulo de prueba",
                 userId,
                 1.0
+
         );
 
         notificationService.sendNotification(userId, dto);
@@ -75,7 +76,7 @@ public class NotificationServiceTest {
         Notification ultima = lista.get(lista.size() - 1);
         notificationId = ultima.getIdNotification(); // se guarda para el siguiente test
 
-        assertEquals("Mensaje de prueba", ultima.getTextComment());
+        assertEquals("Mensaje de prueba", ultima.getText());
         assertFalse(ultima.isRead());
     }
 
@@ -102,7 +103,7 @@ public class NotificationServiceTest {
         Report report = Report.builder()
                 .id(new ObjectId().toString())
                 .title("Reporte de prueba")
-                .user(user)
+                .idUser(new ObjectId(user.getId()))
                 .build();
 
         // Agregamos el reporte al usuario como seguido

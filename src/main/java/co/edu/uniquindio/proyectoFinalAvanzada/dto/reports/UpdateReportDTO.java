@@ -16,9 +16,8 @@ public record UpdateReportDTO(
         @NotBlank @Length(max = 300) String title,
         @NotBlank @Length(max = 1000) String description,
         Location location,
-        @NotNull List<@NotBlank String> image,
-        @NotNull List<@NotBlank String> category,
         @NotNull List<@NotBlank String> pictures,
+        @NotNull List<@NotBlank String> category,
         ReportStatus status,
         Municipality municipality
 ) {

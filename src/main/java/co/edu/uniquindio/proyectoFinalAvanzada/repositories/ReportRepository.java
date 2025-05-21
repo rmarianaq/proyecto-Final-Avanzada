@@ -26,7 +26,7 @@ public interface ReportRepository extends MongoRepository<Report, String> {
 
     // Reportes que están cerca a una latitud/longitud
     @Query("{ 'location': { $near: { $geometry: { type: 'Point', coordinates: [?0, ?1] }, $maxDistance: ?2 } } }")
-    List<Report> findReportsNear(double lng, double lat, double maxDistanceMeters);
+    List<Report> findReportsNear(double lat, double lonj, double maxDistanceMeters);
 
     List<Report> findByStatus(ReportStatus status);
 }

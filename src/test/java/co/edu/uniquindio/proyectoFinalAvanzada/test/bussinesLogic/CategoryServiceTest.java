@@ -6,6 +6,7 @@ import co.edu.uniquindio.proyectoFinalAvanzada.dto.categories.UpdateCategoryDTO;
 import co.edu.uniquindio.proyectoFinalAvanzada.model.documents.Category;
 import co.edu.uniquindio.proyectoFinalAvanzada.repositories.CategoryRepository;
 import co.edu.uniquindio.proyectoFinalAvanzada.services.CategoryService;
+import org.bson.types.ObjectId;
 import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 public class CategoryServiceTest {
@@ -45,9 +47,26 @@ public class CategoryServiceTest {
 
     @Test
     public void testUpdateCategory() throws Exception {
-        UpdateCategoryDTO updateCategoryDTO = new UpdateCategoryDTO("67f58810cbfef4113e8268de", "Hurto actualizado", "Descripcion actualizada");
+        UpdateCategoryDTO updateCategoryDTO = new UpdateCategoryDTO("682cd9d909453c57ad5c46f8", "Hurto actualizado", "Descripcion actualizada");
 
         categoryService.updateCategory(updateCategoryDTO);
+    }
+    @Test
+    void testDeleteCategory() throws Exception {
+        // Arrange
+        String id = "682cd9d909453c57ad5c46f8";
+        ObjectId objectId = new ObjectId(id);
+
+        Category category = new Category();
+        category.setId(objectId.toString());
+
+        when(categoryRepository.findById(id)).thenReturn(Optional.of(category));
+
+        // Act
+        categoryService.deleteCategory(id);
+
+        // Assert
+        verify(categoryRepository, times(1)).deleteById(String.valueOf(category));
     }
 
 

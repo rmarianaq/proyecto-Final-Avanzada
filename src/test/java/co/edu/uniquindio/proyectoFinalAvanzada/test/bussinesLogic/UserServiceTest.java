@@ -34,7 +34,7 @@ public class UserServiceTest {
     @Autowired
     private UserRepository userRepository;
 
-    private static String userId = "67fc54fb2ee33d1f1558d414";
+    private static String userId = "682cd7c9b61a3521201b16ac";
 
     private final String testEmail = "teo154@utlook.com";
 
@@ -74,8 +74,7 @@ public class UserServiceTest {
                 "Juan Actualizado",
                 "3121234567",
                 Municipality.CALARCA,
-                "Carrera 45",
-                "321"
+                "Carrera 45"
         );
 
         userService.updateUser(updateDTO);

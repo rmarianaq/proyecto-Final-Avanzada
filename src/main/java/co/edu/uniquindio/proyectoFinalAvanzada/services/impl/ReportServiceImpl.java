@@ -134,8 +134,8 @@ public class ReportServiceImpl implements ReportService {
 
         // Convertir Location a Point
         Point locationPoint = new Point(
-                filter.location().getLongitude(), // X → longitud
-                filter.location().getLatitude()   // Y → latitud
+                filter.location().getLatitude(), // X → longitud
+                filter.location().getLongitude()   // Y → latitud
         );
 
 // Convertir el radio a radianes
