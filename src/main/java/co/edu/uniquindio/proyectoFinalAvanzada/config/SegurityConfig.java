@@ -40,13 +40,13 @@ public class SegurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> req
                         .requestMatchers("/api/auth/**",
-                                "/api/users",
-                                "/api/users/{email}/activate",
-                                "/api/users/{email}/password",
-                                "/api/users/{email}/verificationCode",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**"
-                                ).permitAll()
+                        ).permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/users").permitAll() // ✅ Necesario para permitir registro
+                        .requestMatchers(HttpMethod.PUT, "/api/users/{email}/activate").permitAll()
+                        .requestMatchers(HttpMethod.PUT, "/api/users/{email}/password").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/users/{email}/verificationCode").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/categories/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/categories/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/categories/**").hasRole("ADMIN")
@@ -64,7 +64,7 @@ public class SegurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         // Configura las políticas de CORS para permitir solicitudes desde el frontend
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("*"));
+        config.setAllowedOrigins(List.of("http://localhost:4200"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);
