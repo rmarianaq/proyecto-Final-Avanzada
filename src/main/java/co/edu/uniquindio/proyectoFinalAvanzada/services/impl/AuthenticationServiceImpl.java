@@ -24,7 +24,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public TokenDTO login(LoginDTO account) throws Exception{
 
-        Optional<User> userOptional = userRepository.findByEmail(account.email());
+
+        String emailNormalizado = account.email().trim().toLowerCase();
+        Optional<User> userOptional = userRepository.findByEmail(emailNormalizado);
 
 
         if(userOptional.isEmpty()){
@@ -50,7 +52,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         return Map.of(
                 "email", user.getEmail(),
                 "nombre", user.getName(),
-                "rol", "ROLE_"+user.getRol().name()
+                "rol", "ROLE_" +user.getRol().name()
         );
 
     }

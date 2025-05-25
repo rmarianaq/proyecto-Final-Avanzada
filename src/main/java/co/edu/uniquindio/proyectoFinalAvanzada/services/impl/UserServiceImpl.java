@@ -20,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
@@ -35,19 +36,29 @@ public class UserServiceImpl implements UserService {
     private final UserMapper userMapper;
     private final MongoTemplate mongoTemplate;
     private final EmailService emailService;
+    private final PasswordEncoder passwordEncoder;
+
 
 
     @Override
     public void createUser(CreateUserDTO account) throws Exception {
-        User user = userMapper.toDocument(account);
-        if( emailExist(account.email()) ){
-            throw new EmailNotValidException("El correo "+account.email()+" ya está en uso");
+        String normalizedEmail = account.email().trim().toLowerCase();
+
+        if (emailExist(normalizedEmail)) {
+            throw new EmailNotValidException("El correo " + normalizedEmail + " ya está en uso");
         }
 
+        User user = userMapper.toDocument(account);
+        user.setEmail(normalizedEmail);
+
+        String encodedPassword = passwordEncoder.encode(account.password());
+        user.setPassword(encodedPassword);
+
         userRepository.save(user);
-        //Enviar un email con el codigo de activacion
-        sendVerificationCode(account.email());
+
+        sendVerificationCode(normalizedEmail);
     }
+
     private boolean emailExist(String email) {
         return userRepository.findByEmail(email).isPresent();
     }
